@@ -77,8 +77,7 @@
 			children = (
 				25A4A34E25A1FBC200BDE1B3 /* Top10iOSDev.h */,
 				25A4A34F25A1FBC200BDE1B3 /* Info.plist */,
-				25A4A36725A1FC3100BDE1B3 /* RequirementItem.swift */,
-				25A4A36B25A1FDD100BDE1B3 /* RequirementLoader.swift */,
+				25A4A36F25A1FF7900BDE1B3 /* Requirement Feature */,
 			);
 			path = Top10iOSDev;
 			sourceTree = "<group>";
@@ -90,6 +89,15 @@
 				25A4A35B25A1FBC300BDE1B3 /* Info.plist */,
 			);
 			path = Top10iOSDevTests;
+			sourceTree = "<group>";
+		};
+		25A4A36F25A1FF7900BDE1B3 /* Requirement Feature */ = {
+			isa = PBXGroup;
+			children = (
+				25A4A36725A1FC3100BDE1B3 /* RequirementItem.swift */,
+				25A4A36B25A1FDD100BDE1B3 /* RequirementLoader.swift */,
+			);
+			path = "Requirement Feature";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
