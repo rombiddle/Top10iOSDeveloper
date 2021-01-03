@@ -10,6 +10,7 @@
 		25A4A35525A1FBC300BDE1B3 /* Top10iOSDev.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25A4A34B25A1FBC200BDE1B3 /* Top10iOSDev.framework */; };
 		25A4A35A25A1FBC300BDE1B3 /* Top10iOSDevTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A4A35925A1FBC300BDE1B3 /* Top10iOSDevTests.swift */; };
 		25A4A35C25A1FBC300BDE1B3 /* Top10iOSDev.h in Headers */ = {isa = PBXBuildFile; fileRef = 25A4A34E25A1FBC200BDE1B3 /* Top10iOSDev.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		25A4A36825A1FC3100BDE1B3 /* RequirementItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A4A36725A1FC3100BDE1B3 /* RequirementItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,7 @@
 		25A4A35425A1FBC300BDE1B3 /* Top10iOSDevTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Top10iOSDevTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		25A4A35925A1FBC300BDE1B3 /* Top10iOSDevTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Top10iOSDevTests.swift; sourceTree = "<group>"; };
 		25A4A35B25A1FBC300BDE1B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		25A4A36725A1FC3100BDE1B3 /* RequirementItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequirementItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 			children = (
 				25A4A34E25A1FBC200BDE1B3 /* Top10iOSDev.h */,
 				25A4A34F25A1FBC200BDE1B3 /* Info.plist */,
+				25A4A36725A1FC3100BDE1B3 /* RequirementItem.swift */,
 			);
 			path = Top10iOSDev;
 			sourceTree = "<group>";
@@ -147,6 +150,7 @@
 				TargetAttributes = {
 					25A4A34A25A1FBC200BDE1B3 = {
 						CreatedOnToolsVersion = 12.1;
+						LastSwiftMigration = 1210;
 					};
 					25A4A35325A1FBC300BDE1B3 = {
 						CreatedOnToolsVersion = 12.1;
@@ -194,6 +198,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25A4A36825A1FC3100BDE1B3 /* RequirementItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,6 +345,7 @@
 		25A4A36025A1FBC300BDE1B3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -357,6 +363,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = rb.app.Top10iOSDev;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -364,6 +371,7 @@
 		25A4A36125A1FBC300BDE1B3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -388,6 +396,7 @@
 		25A4A36325A1FBC300BDE1B3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = QKKS5PH8U6;
@@ -406,6 +415,7 @@
 		25A4A36425A1FBC300BDE1B3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = QKKS5PH8U6;

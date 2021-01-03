@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+struct RequirementItem {
+    let id: UUID
+    let description: String
+}
