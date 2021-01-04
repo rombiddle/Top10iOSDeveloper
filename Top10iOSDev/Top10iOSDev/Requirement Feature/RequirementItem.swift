@@ -7,7 +7,26 @@
 
 import Foundation
 
+struct RequirementCategory {
+    let id: UUID
+    let name: String
+    let groups: [RequirementGroup]
+}
+
+struct RequirementGroup {
+    let id: UUID
+    let name: String
+    let items: [RequirementItem]
+}
+
 struct RequirementItem {
     let id: UUID
-    let description: String
+    let name: String
+    let type: RequirementType
+}
+
+enum RequirementType {
+    case level(Int?)
+    case done(Bool?)
+    case number(Int?, String?)
 }
