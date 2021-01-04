@@ -8,7 +8,7 @@
 import Foundation
 
 enum LoadRequirementResult {
-    case success([RequirementItem])
+    case success([RequirementCategory])
     case error(Error)
 }
 

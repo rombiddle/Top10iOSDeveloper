@@ -12,6 +12,7 @@
 		25A4A35C25A1FBC300BDE1B3 /* Top10iOSDev.h in Headers */ = {isa = PBXBuildFile; fileRef = 25A4A34E25A1FBC200BDE1B3 /* Top10iOSDev.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		25A4A36825A1FC3100BDE1B3 /* RequirementItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A4A36725A1FC3100BDE1B3 /* RequirementItem.swift */; };
 		25A4A36C25A1FDD100BDE1B3 /* RequirementLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A4A36B25A1FDD100BDE1B3 /* RequirementLoader.swift */; };
+		25A4A37325A2072600BDE1B3 /* RemoteRequirementLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A4A37225A2072600BDE1B3 /* RemoteRequirementLoaderTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +34,7 @@
 		25A4A35B25A1FBC300BDE1B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		25A4A36725A1FC3100BDE1B3 /* RequirementItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequirementItem.swift; sourceTree = "<group>"; };
 		25A4A36B25A1FDD100BDE1B3 /* RequirementLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequirementLoader.swift; sourceTree = "<group>"; };
+		25A4A37225A2072600BDE1B3 /* RemoteRequirementLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteRequirementLoaderTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 			children = (
 				25A4A35925A1FBC300BDE1B3 /* Top10iOSDevTests.swift */,
 				25A4A35B25A1FBC300BDE1B3 /* Info.plist */,
+				25A4A37225A2072600BDE1B3 /* RemoteRequirementLoaderTests.swift */,
 			);
 			path = Top10iOSDevTests;
 			sourceTree = "<group>";
@@ -218,6 +221,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25A4A37325A2072600BDE1B3 /* RemoteRequirementLoaderTests.swift in Sources */,
 				25A4A35A25A1FBC300BDE1B3 /* Top10iOSDevTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
