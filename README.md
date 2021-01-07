@@ -130,3 +130,27 @@ Then the app should display an error message
 
 #### No connectivity - error course (sad path):
 1. System delivers error.
+
+## Model Specs
+
+### Requirement Category
+| Property | Type                 |
+|----------|----------------------|
+| `id`     | `UUID`               |
+| `name`   | `String`             |
+| `groups` | `[RequirementGroup]` |
+
+### Requirement Group
+| Property | Type                |
+|----------|---------------------|
+| `id`     | `UUID`              |
+| `name`   | `String`            |
+| `items`  | `[RequirementItem]` |
+
+### Requirement Item
+| Property | Type              |
+|----------|-------------------|
+| `id`     | `UUID`            |
+| `name`   | `String`          |
+| `type`   | `RequirementType` |
+
