@@ -2,7 +2,7 @@ name: Swift
 
 on:
   push:
-    branches: [ master ]
+    branches: [ feature/create-CI-for-macOS ]
 
 jobs:
   build-and-test:
