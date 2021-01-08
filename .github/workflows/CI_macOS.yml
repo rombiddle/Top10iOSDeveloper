@@ -2,7 +2,7 @@ name: CI-macOS
 
 on:
   push:
-    branches: [ feature/create-CI-for-macOS ]
+    branches: [ master ]
 
 jobs:
   build-and-test:
