@@ -1,5 +1,7 @@
 # Top 10% iOS Developer App Case Study
 
+![](https://github.com/rombiddle/Top10iOSDeveloper/workflows/CI-macOS/badge.svg)
+
 ## BDD Specs
 
 ### Story: user requests to see the requirements
