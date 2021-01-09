@@ -7,18 +7,7 @@
 
 import Foundation
 
-struct RequirementCategory {
-    let id: UUID
-    let name: String
-    let groups: [RequirementGroup]
-}
-
-struct RequirementGroup {
-    let id: UUID
-    let name: String
-    let items: [RequirementItem]
-}
-
+/// ex: Adapter pattern
 struct RequirementItem {
     let id: UUID
     let name: String
