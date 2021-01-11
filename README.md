@@ -156,3 +156,39 @@ Then the app should display an error message
 | `name`   | `String`          |
 | `type`   | `RequirementType` |
 
+### Payload contract
+
+```
+GET /requirements
+
+200 RESPONSE
+
+{
+    "categories": [
+        {
+            "id": "a UUID",
+            "name": "a name",
+            "groups": [
+                {
+                    "id": "a UUID",
+                    "name": "a name",
+                    "items": [
+                        {
+                            "id": "a UUID",
+                            "name": "a name",
+                            "type": "a type"
+                        }
+                        ...
+                    ]
+                }
+                ...
+            ]
+        }
+        ...
+    ]
+}
+```
+
+---
+
+
