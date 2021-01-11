@@ -8,8 +8,14 @@
 import Foundation
 
 /// ex: Software architecture
-struct RequirementCategory {
+public struct RequirementCategory {
     let id: UUID
     let name: String
     let groups: [RequirementGroup]
+}
+
+extension RequirementCategory: Equatable {
+    public static func == (lhs: RequirementCategory, rhs: RequirementCategory) -> Bool {
+        return lhs.id == rhs.id && lhs.name == rhs.name && lhs.groups == rhs.groups
+    }
 }

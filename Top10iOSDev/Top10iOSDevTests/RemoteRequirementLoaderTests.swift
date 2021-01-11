@@ -74,12 +74,12 @@ class RemoteRequirementLoaderTests: XCTestCase {
     }
     
     private func expect(_ sut: RemoteRequirementLoader, toCompleteWithError error: RemoteRequirementLoader.Error, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
-        var capturedErrors = [RemoteRequirementLoader.Error]()
-        sut.load { capturedErrors.append($0) }
+        var capturedResults = [RemoteRequirementLoader.Result]()
+        sut.load { capturedResults.append($0) }
         
         action()
         
-        XCTAssertEqual(capturedErrors, [error], file: file, line: line)
+        XCTAssertEqual(capturedResults, [.failure(error)], file: file, line: line)
     }
     
     private class HTTPClientSpy: HTTPClient {
