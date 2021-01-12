@@ -40,7 +40,9 @@ public final class RemoteRequirementLoader {
             switch result {
             case let .success(data, _):
                 if let _ = try? JSONSerialization.jsonObject(with: data) {
-                    completion(.success([]))
+                    if let root = try? JSONDecoder().decode(Root.self, from: data) {
+                        completion(.success(root.categories))
+                    }
                 } else {
                     completion(.failure(.invalidData))
                 }
@@ -50,4 +52,8 @@ public final class RemoteRequirementLoader {
             }
         }
     }
+}
+
+private struct Root: Decodable {
+    let categories: [RequirementCategory]
 }

@@ -74,6 +74,29 @@ class RemoteRequirementLoaderTests: XCTestCase {
         }
     }
     
+    func test_load_deliversItemsOn200HTTPRespnseWithJSONItems() {
+        let (sut, client) = makeSUT()
+        
+        let item1 = RequirementCategory(id: UUID(),
+                                        name: "a name",
+                                        groups: [])
+        
+        let item1JSON = [
+            "id": item1.id.uuidString,
+            "name": item1.name,
+            "groups": item1.groups
+        ] as [String : Any]
+        
+        let itemsJSON = [
+            "categories": [item1JSON]
+        ]
+        
+        expect(sut, toCompleteWith: .success([item1])) {
+            let json = try! JSONSerialization.data(withJSONObject: itemsJSON)
+            client.complete(withStatusCode: 200, data: json)
+        }
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(url: URL = URL(string: "https://a-url.com")!) -> (sut: RemoteRequirementLoader, client: HTTPClientSpy) {

@@ -8,10 +8,16 @@
 import Foundation
 
 /// ex: Software architecture
-public struct RequirementCategory {
-    let id: UUID
-    let name: String
-    let groups: [RequirementGroup]
+public struct RequirementCategory: Decodable {
+    public let id: UUID
+    public let name: String
+    public let groups: [RequirementGroup]
+    
+    public init(id: UUID, name: String, groups: [RequirementGroup]) {
+        self.id = id
+        self.name = name
+        self.groups = groups
+    }
 }
 
 extension RequirementCategory: Equatable {

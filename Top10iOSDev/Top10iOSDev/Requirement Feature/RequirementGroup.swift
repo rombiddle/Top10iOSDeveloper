@@ -8,10 +8,16 @@
 import Foundation
 
 /// ex: Design patterns
-public struct RequirementGroup {
-    let id: UUID
-    let name: String
-    let items: [RequirementItem]
+public struct RequirementGroup: Decodable {
+    public let id: UUID
+    public let name: String
+    public let items: [RequirementItem]
+    
+    public init(id: UUID, name: String, items: [RequirementItem]) {
+        self.id = id
+        self.name = name
+        self.items = items
+    }
 }
 
 extension RequirementGroup: Equatable {

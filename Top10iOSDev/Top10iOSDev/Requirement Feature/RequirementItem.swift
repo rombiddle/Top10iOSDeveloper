@@ -8,10 +8,16 @@
 import Foundation
 
 /// ex: Adapter pattern
-public struct RequirementItem {
-    let id: UUID
-    let name: String
-    let type: RequirementType
+public struct RequirementItem: Decodable {
+    public let id: UUID
+    public let name: String
+    public let type: RequirementType
+    
+    public init(id: UUID, name: String, type: RequirementType) {
+        self.id = id
+        self.name = name
+        self.type = type
+    }
 }
 
 extension RequirementItem: Equatable {
@@ -20,16 +26,16 @@ extension RequirementItem: Equatable {
     }
 }
 
-enum RequirementType {
+public enum RequirementType {
     case level(Int?)
     case done(Bool?)
     case number(Int?, String?)
     
-    var requirementCode: Int {
-        switch self {
-        case .level: return 0
-        case .done: return 1
-        case .number: return 2
+    init?(type: Int) {
+        switch type {
+        case 0: self = .level(nil)
+        case 1: self = .done(nil)
+        default: self = .number(nil, nil)
         }
     }
 }
@@ -45,6 +51,27 @@ extension RequirementType: Equatable {
             return (rhsInt, rhsString) == (lhsInt, lhsSting)
         default:
             return false
+        }
+    }
+}
+
+extension RequirementType: Decodable {
+    enum Key: CodingKey {
+        case rawValue
+    }
+        
+    enum CodingError: Error {
+        case unknownValue
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: Key.self)
+        let rawValue = try container.decode(Int.self, forKey: .rawValue)
+        
+        if let type = RequirementType(type: rawValue) {
+            self = type
+        } else {
+            throw CodingError.unknownValue
         }
     }
 }
