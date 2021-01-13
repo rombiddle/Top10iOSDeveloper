@@ -77,22 +77,12 @@ class RemoteRequirementLoaderTests: XCTestCase {
     func test_load_deliversItemsOn200HTTPRespnseWithJSONItems() {
         let (sut, client) = makeSUT()
         
-        let item1 = RequirementCategory(id: UUID(),
-                                        name: "a name",
-                                        groups: [])
+        let item1 = makeItem(id: UUID(),
+                             name: "a name",
+                             groups: [])
         
-        let item1JSON = [
-            "id": item1.id.uuidString,
-            "name": item1.name,
-            "groups": item1.groups
-        ] as [String : Any]
-        
-        let itemsJSON = [
-            "categories": [item1JSON]
-        ]
-        
-        expect(sut, toCompleteWith: .success([item1])) {
-            let json = try! JSONSerialization.data(withJSONObject: itemsJSON)
+        expect(sut, toCompleteWith: .success([item1.model])) {
+            let json = makeItemsJSON([item1.json])
             client.complete(withStatusCode: 200, data: json)
         }
     }
@@ -103,6 +93,23 @@ class RemoteRequirementLoaderTests: XCTestCase {
         let client = HTTPClientSpy()
         let sut = RemoteRequirementLoader(url: url, client: client)
         return (sut, client)
+    }
+    
+    private func makeItem(id: UUID, name: String, groups: [RequirementGroup]) -> (model: RequirementCategory, json: [String: Any]) {
+        let item = RequirementCategory(id: id, name: name, groups: groups)
+        
+        let json = [
+            "id": id.uuidString,
+            "name": name,
+            "groups": groups
+        ] as [String: Any]
+        
+        return (item, json)
+    }
+    
+    private func makeItemsJSON(_ items: [[String: Any]]) -> Data {
+        let json = ["categories": items]
+        return try! JSONSerialization.data(withJSONObject: json)
     }
     
     private func expect(_ sut: RemoteRequirementLoader, toCompleteWith result: RemoteRequirementLoader.Result, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
