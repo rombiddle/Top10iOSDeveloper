@@ -7,15 +7,6 @@
 
 import Foundation
 
-public enum HTTPClientResult {
-    case success(Data, HTTPURLResponse)
-    case failure(Error)
-}
-
-public protocol HTTPClient {
-    func get(from url: URL, completion: @escaping (HTTPClientResult) -> Void)
-}
-
 public final class RemoteRequirementLoader {
     private let client: HTTPClient
     private let url: URL
@@ -50,62 +41,5 @@ public final class RemoteRequirementLoader {
                 completion(.failure(.connectivity))
             }
         }
-    }
-}
-
-private class RequirementCategoryMapper {
-    private struct Root: Decodable {
-        let categories: [Category]
-    }
-
-    private struct Category: Decodable {
-        let id: UUID
-        let name: String
-        let groups: [Group]
-        
-        var category: RequirementCategory {
-            RequirementCategory(id: id,
-                                name: name,
-                                groups: groups.map { $0.group })
-        }
-    }
-
-    private struct Group: Decodable {
-        let id: UUID
-        let name: String
-        let items: [Item]
-        
-        var group: RequirementGroup {
-            RequirementGroup(id: id,
-                             name: name,
-                             items: items.compactMap { $0.item })
-        }
-    }
-
-    private struct Item: Decodable {
-        let id: UUID
-        let name: String
-        let type: Int
-        
-        var item: RequirementItem? {
-            if let rType = RequirementType(type: type) {
-                return RequirementItem(id: id,
-                                       name: name,
-                                       type: rType)
-            } else {
-                return nil
-            }
-        }
-    }
-    
-    static var OK_200: Int { return 200 }
-
-    static func map(_ data: Data, _ response: HTTPURLResponse) throws -> [RequirementCategory] {
-        guard response.statusCode == OK_200 else {
-            throw RemoteRequirementLoader.Error.invalidData
-        }
-        
-        let root = try JSONDecoder().decode(Root.self, from: data)
-        return root.categories.map { $0.category }
     }
 }
