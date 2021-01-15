@@ -30,12 +30,7 @@ public final class RemoteRequirementLoader {
         client.get(from: url) { result in
             switch result {
             case let .success(data, response):
-                do {
-                    let categories = try RequirementCategoryMapper.map(data, response)
-                    completion(.success(categories))
-                } catch {
-                    completion(.failure(.invalidData))
-                }
+                completion(RequirementCategoryMapper.map(data, from: response))
         
             case .failure:
                 completion(.failure(.connectivity))

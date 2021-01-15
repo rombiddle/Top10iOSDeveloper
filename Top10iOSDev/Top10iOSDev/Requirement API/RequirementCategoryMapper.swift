@@ -10,6 +10,10 @@ import Foundation
 internal final class RequirementCategoryMapper {
     private struct Root: Decodable {
         let categories: [Category]
+        
+        var requirements: [RequirementCategory] {
+            categories.map { $0.category }
+        }
     }
 
     private struct Category: Decodable {
@@ -53,13 +57,13 @@ internal final class RequirementCategoryMapper {
     }
     
     private static var OK_200: Int { return 200 }
-
-    internal static func map(_ data: Data, _ response: HTTPURLResponse) throws -> [RequirementCategory] {
-        guard response.statusCode == OK_200 else {
-            throw RemoteRequirementLoader.Error.invalidData
+    
+    internal static func map(_ data: Data, from response: HTTPURLResponse) -> RemoteRequirementLoader.Result {
+        guard response.statusCode == OK_200,
+              let root = try? JSONDecoder().decode(Root.self, from: data) else {
+            return .failure(.invalidData)
         }
         
-        let root = try JSONDecoder().decode(Root.self, from: data)
-        return root.categories.map { $0.category }
+        return .success(root.requirements)
     }
 }
