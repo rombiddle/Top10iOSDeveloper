@@ -16,6 +16,7 @@
 		25A4A5C125A3452B00BDE1B3 /* RemoteRequirementLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A4A5C025A3452B00BDE1B3 /* RemoteRequirementLoader.swift */; };
 		25A4ACC825AA2B3B00BDE1B3 /* RequirementGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A4ACC725AA2B3A00BDE1B3 /* RequirementGroup.swift */; };
 		25A4ACCC25AA2B5A00BDE1B3 /* RequirementCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A4ACCB25AA2B5A00BDE1B3 /* RequirementCategory.swift */; };
+		25AD5B2D25AEE58C00D21CC6 /* RequirementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AD5B2C25AEE58C00D21CC6 /* RequirementType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +42,7 @@
 		25A4A5C025A3452B00BDE1B3 /* RemoteRequirementLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteRequirementLoader.swift; sourceTree = "<group>"; };
 		25A4ACC725AA2B3A00BDE1B3 /* RequirementGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequirementGroup.swift; sourceTree = "<group>"; };
 		25A4ACCB25AA2B5A00BDE1B3 /* RequirementCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequirementCategory.swift; sourceTree = "<group>"; };
+		25AD5B2C25AEE58C00D21CC6 /* RequirementType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequirementType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,10 +106,8 @@
 		25A4A36F25A1FF7900BDE1B3 /* Requirement Feature */ = {
 			isa = PBXGroup;
 			children = (
-				25A4A36725A1FC3100BDE1B3 /* RequirementItem.swift */,
+				25AD5B3025AEE5C000D21CC6 /* Model */,
 				25A4A36B25A1FDD100BDE1B3 /* RequirementLoader.swift */,
-				25A4ACC725AA2B3A00BDE1B3 /* RequirementGroup.swift */,
-				25A4ACCB25AA2B5A00BDE1B3 /* RequirementCategory.swift */,
 			);
 			path = "Requirement Feature";
 			sourceTree = "<group>";
@@ -118,6 +118,17 @@
 				25A4A5C025A3452B00BDE1B3 /* RemoteRequirementLoader.swift */,
 			);
 			path = "Requirement API";
+			sourceTree = "<group>";
+		};
+		25AD5B3025AEE5C000D21CC6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				25A4A36725A1FC3100BDE1B3 /* RequirementItem.swift */,
+				25A4ACC725AA2B3A00BDE1B3 /* RequirementGroup.swift */,
+				25A4ACCB25AA2B5A00BDE1B3 /* RequirementCategory.swift */,
+				25AD5B2C25AEE58C00D21CC6 /* RequirementType.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -234,6 +245,7 @@
 				25A4ACCC25AA2B5A00BDE1B3 /* RequirementCategory.swift in Sources */,
 				25A4A36825A1FC3100BDE1B3 /* RequirementItem.swift in Sources */,
 				25A4ACC825AA2B3B00BDE1B3 /* RequirementGroup.swift in Sources */,
+				25AD5B2D25AEE58C00D21CC6 /* RequirementType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

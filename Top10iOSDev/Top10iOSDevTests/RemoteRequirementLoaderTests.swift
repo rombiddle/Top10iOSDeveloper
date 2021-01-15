@@ -77,12 +77,24 @@ class RemoteRequirementLoaderTests: XCTestCase {
     func test_load_deliversItemsOn200HTTPRespnseWithJSONItems() {
         let (sut, client) = makeSUT()
         
-        let item1 = makeItem(id: UUID(),
-                             name: "a name",
+        let cat1 = makeCategory(id: UUID(),
+                             name: "cat name",
                              groups: [])
         
-        expect(sut, toCompleteWith: .success([item1.model])) {
-            let json = makeItemsJSON([item1.json])
+        let item2 = RequirementItem(id: UUID(),
+                                    name: "item name",
+                                    type: .done(nil))
+        
+        let group2 = RequirementGroup(id: UUID(),
+                                      name: "group name",
+                                      items: [item2])
+        
+        let cat2 = makeCategory(id: UUID(),
+                             name: "another cat name",
+                             groups: [group2])
+        
+        expect(sut, toCompleteWith: .success([cat1.model, cat2.model])) {
+            let json = makeCategoriesJSON([cat1.json, cat2.json])
             client.complete(withStatusCode: 200, data: json)
         }
     }
@@ -95,19 +107,31 @@ class RemoteRequirementLoaderTests: XCTestCase {
         return (sut, client)
     }
     
-    private func makeItem(id: UUID, name: String, groups: [RequirementGroup]) -> (model: RequirementCategory, json: [String: Any]) {
+    private func makeCategory(id: UUID, name: String, groups: [RequirementGroup]) -> (model: RequirementCategory, json: [String: Any]) {
         let item = RequirementCategory(id: id, name: name, groups: groups)
         
         let json = [
             "id": id.uuidString,
             "name": name,
-            "groups": groups
+            "groups": groups.map { group in
+                return [
+                    "id": group.id.uuidString,
+                    "name": group.name,
+                    "items": group.items.map { item in
+                        return [
+                            "id": item.id.uuidString,
+                            "name": item.name,
+                            "type": item.type.typeId
+                        ] as [String: Any]
+                    }
+                ] as [String: Any]
+            }
         ] as [String: Any]
         
         return (item, json)
     }
     
-    private func makeItemsJSON(_ items: [[String: Any]]) -> Data {
+    private func makeCategoriesJSON(_ items: [[String: Any]]) -> Data {
         let json = ["categories": items]
         return try! JSONSerialization.data(withJSONObject: json)
     }
