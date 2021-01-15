@@ -8,7 +8,7 @@
 import Foundation
 
 /// ex: Software architecture
-public struct RequirementCategory: Decodable {
+public struct RequirementCategory {
     public let id: UUID
     public let name: String
     public let groups: [RequirementGroup]

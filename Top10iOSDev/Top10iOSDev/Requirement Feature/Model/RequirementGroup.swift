@@ -8,7 +8,7 @@
 import Foundation
 
 /// ex: Design patterns
-public struct RequirementGroup: Decodable {
+public struct RequirementGroup {
     public let id: UUID
     public let name: String
     public let items: [RequirementItem]

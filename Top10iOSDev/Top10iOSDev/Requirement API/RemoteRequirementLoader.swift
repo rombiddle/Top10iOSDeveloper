@@ -41,7 +41,7 @@ public final class RemoteRequirementLoader {
             case let .success(data, response):
                 if response.statusCode == 200, let _ = try? JSONSerialization.jsonObject(with: data) {
                     if let root = try? JSONDecoder().decode(Root.self, from: data) {
-                        completion(.success(root.categories))
+                        completion(.success(root.categories.map { $0.category }))
                     }
                 } else {
                     completion(.failure(.invalidData))
@@ -55,5 +55,45 @@ public final class RemoteRequirementLoader {
 }
 
 private struct Root: Decodable {
-    let categories: [RequirementCategory]
+    let categories: [Category]
+}
+
+private struct Category: Decodable {
+    let id: UUID
+    let name: String
+    let groups: [Group]
+    
+    var category: RequirementCategory {
+        RequirementCategory(id: id,
+                            name: name,
+                            groups: groups.map { $0.group })
+    }
+}
+
+private struct Group: Decodable {
+    let id: UUID
+    let name: String
+    let items: [Item]
+    
+    var group: RequirementGroup {
+        RequirementGroup(id: id,
+                         name: name,
+                         items: items.compactMap { $0.item })
+    }
+}
+
+private struct Item: Decodable {
+    let id: UUID
+    let name: String
+    let type: Int
+    
+    var item: RequirementItem? {
+        if let rType = RequirementType(type: type) {
+            return RequirementItem(id: id,
+                                   name: name,
+                                   type: rType)
+        } else {
+            return nil
+        }
+    }
 }
