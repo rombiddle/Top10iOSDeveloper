@@ -131,8 +131,8 @@ class RemoteRequirementLoaderTests: XCTestCase {
         return (item, json)
     }
     
-    private func makeCategoriesJSON(_ items: [[String: Any]]) -> Data {
-        let json = ["categories": items]
+    private func makeCategoriesJSON(_ cats: [[String: Any]]) -> Data {
+        let json = ["categories": cats]
         return try! JSONSerialization.data(withJSONObject: json)
     }
     
