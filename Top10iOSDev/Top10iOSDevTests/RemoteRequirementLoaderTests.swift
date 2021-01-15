@@ -102,10 +102,20 @@ class RemoteRequirementLoaderTests: XCTestCase {
     
     // MARK: - Helpers
     
-    private func makeSUT(url: URL = URL(string: "https://a-url.com")!) -> (sut: RemoteRequirementLoader, client: HTTPClientSpy) {
+    private func makeSUT(url: URL = URL(string: "https://a-url.com")!, file: StaticString = #filePath, line: UInt = #line) -> (sut: RemoteRequirementLoader, client: HTTPClientSpy) {
         let client = HTTPClientSpy()
         let sut = RemoteRequirementLoader(url: url, client: client)
+        
+        trackForMemotyLeaks(sut)
+        trackForMemotyLeaks(client)
+        
         return (sut, client)
+    }
+    
+    private func trackForMemotyLeaks(_ instance: AnyObject, file: StaticString = #filePath, line: UInt = #line) {
+        addTeardownBlock { [weak instance] in
+            XCTAssertNil(instance, "Instance should have been deallocated. Potential memory leak.", file: file, line: line)
+        }
     }
     
     private func makeCategory(id: UUID, name: String, groups: [RequirementGroup]) -> (model: RequirementCategory, json: [String: Any]) {
