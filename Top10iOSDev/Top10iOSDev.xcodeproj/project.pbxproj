@@ -68,6 +68,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		25A1B65125B4348F00732C3F /* Requirement API */ = {
+			isa = PBXGroup;
+			children = (
+				25A4A37225A2072600BDE1B3 /* RemoteRequirementLoaderTests.swift */,
+			);
+			path = "Requirement API";
+			sourceTree = "<group>";
+		};
 		25A4A34125A1FBC200BDE1B3 = {
 			isa = PBXGroup;
 			children = (
@@ -102,7 +110,7 @@
 			children = (
 				25A4A35925A1FBC300BDE1B3 /* Top10iOSDevTests.swift */,
 				25A4A35B25A1FBC300BDE1B3 /* Info.plist */,
-				25A4A37225A2072600BDE1B3 /* RemoteRequirementLoaderTests.swift */,
+				25A1B65125B4348F00732C3F /* Requirement API */,
 			);
 			path = Top10iOSDevTests;
 			sourceTree = "<group>";
