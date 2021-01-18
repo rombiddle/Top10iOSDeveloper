@@ -12,8 +12,6 @@ public enum LoadRequirementResult<Error: Swift.Error> {
     case failure(Error)
 }
 
-extension LoadRequirementResult: Equatable where Error: Equatable {}
-
 protocol RequirementLoader {
     associatedtype Error: Swift.Error
     func load(completion: @escaping (LoadRequirementResult<Error>) -> Void)
