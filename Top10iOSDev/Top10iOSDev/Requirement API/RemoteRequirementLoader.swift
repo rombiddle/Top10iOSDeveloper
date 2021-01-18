@@ -16,10 +16,7 @@ public final class RemoteRequirementLoader {
         case invalidData
     }
     
-    public enum Result: Equatable {
-        case success([RequirementCategory])
-        case failure(Error)
-    }
+    public typealias Result = LoadRequirementResult<Error>
     
     public init(url: URL, client: HTTPClient) {
         self.url = url

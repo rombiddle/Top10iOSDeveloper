@@ -7,11 +7,14 @@
 
 import Foundation
 
-enum LoadRequirementResult {
+public enum LoadRequirementResult<Error: Swift.Error> {
     case success([RequirementCategory])
-    case error(Error)
+    case failure(Error)
 }
 
+extension LoadRequirementResult: Equatable where Error: Equatable {}
+
 protocol RequirementLoader {
-    func load(completion: @escaping (LoadRequirementResult) -> Void)
+    associatedtype Error: Swift.Error
+    func load(completion: @escaping (LoadRequirementResult<Error>) -> Void)
 }
