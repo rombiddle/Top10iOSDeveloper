@@ -7,7 +7,7 @@
 
 import Foundation
 
-public final class RemoteRequirementLoader {
+public final class RemoteRequirementLoader: RequirementLoader {
     private let client: HTTPClient
     private let url: URL
     
