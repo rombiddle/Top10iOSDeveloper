@@ -7,12 +7,11 @@
 
 import Foundation
 
-public enum LoadRequirementResult<Error: Swift.Error> {
+public enum LoadRequirementResult {
     case success([RequirementCategory])
     case failure(Error)
 }
 
 protocol RequirementLoader {
-    associatedtype Error: Swift.Error
-    func load(completion: @escaping (LoadRequirementResult<Error>) -> Void)
+    func load(completion: @escaping (LoadRequirementResult) -> Void)
 }

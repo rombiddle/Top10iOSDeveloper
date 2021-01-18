@@ -16,7 +16,7 @@ public final class RemoteRequirementLoader: RequirementLoader {
         case invalidData
     }
     
-    public typealias Result = LoadRequirementResult<Error>
+    public typealias Result = LoadRequirementResult
     
     public init(url: URL, client: HTTPClient) {
         self.url = url
@@ -32,7 +32,7 @@ public final class RemoteRequirementLoader: RequirementLoader {
                 completion(RequirementCategoryMapper.map(data, from: response))
         
             case .failure:
-                completion(.failure(.connectivity))
+                completion(.failure(Error.connectivity))
             }
         }
     }
