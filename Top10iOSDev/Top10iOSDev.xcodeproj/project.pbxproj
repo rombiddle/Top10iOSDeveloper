@@ -19,6 +19,7 @@
 		25AD5B2D25AEE58C00D21CC6 /* RequirementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AD5B2C25AEE58C00D21CC6 /* RequirementType.swift */; };
 		25AD654B25B18DC100D21CC6 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AD654A25B18DC100D21CC6 /* HTTPClient.swift */; };
 		25AD667E25B1980900D21CC6 /* RequirementCategoryMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AD667D25B1980900D21CC6 /* RequirementCategoryMapper.swift */; };
+		25D872B625B5EFDF00ED091D /* URLSessionHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D872B525B5EFDF00ED091D /* URLSessionHTTPClientTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		25AD5B2C25AEE58C00D21CC6 /* RequirementType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequirementType.swift; sourceTree = "<group>"; };
 		25AD654A25B18DC100D21CC6 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		25AD667D25B1980900D21CC6 /* RequirementCategoryMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequirementCategoryMapper.swift; sourceTree = "<group>"; };
+		25D872B525B5EFDF00ED091D /* URLSessionHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClientTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				25A4A37225A2072600BDE1B3 /* RemoteRequirementLoaderTests.swift */,
+				25D872B525B5EFDF00ED091D /* URLSessionHTTPClientTests.swift */,
 			);
 			path = "Requirement API";
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				25A4A37325A2072600BDE1B3 /* RemoteRequirementLoaderTests.swift in Sources */,
+				25D872B625B5EFDF00ED091D /* URLSessionHTTPClientTests.swift in Sources */,
 				25A4A35A25A1FBC300BDE1B3 /* Top10iOSDevTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
