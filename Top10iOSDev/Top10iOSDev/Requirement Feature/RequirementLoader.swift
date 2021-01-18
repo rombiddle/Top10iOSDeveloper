@@ -12,6 +12,6 @@ public enum LoadRequirementResult {
     case failure(Error)
 }
 
-protocol RequirementLoader {
+public protocol RequirementLoader {
     func load(completion: @escaping (LoadRequirementResult) -> Void)
 }
