@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2551166325B81534009B27CB /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2551166225B81534009B27CB /* XCTestCase+MemoryLeakTracking.swift */; };
 		25A4A35525A1FBC300BDE1B3 /* Top10iOSDev.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25A4A34B25A1FBC200BDE1B3 /* Top10iOSDev.framework */; };
 		25A4A35A25A1FBC300BDE1B3 /* Top10iOSDevTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A4A35925A1FBC300BDE1B3 /* Top10iOSDevTests.swift */; };
 		25A4A35C25A1FBC300BDE1B3 /* Top10iOSDev.h in Headers */ = {isa = PBXBuildFile; fileRef = 25A4A34E25A1FBC200BDE1B3 /* Top10iOSDev.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -33,6 +34,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2551166225B81534009B27CB /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 		25A4A34B25A1FBC200BDE1B3 /* Top10iOSDev.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Top10iOSDev.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		25A4A34E25A1FBC200BDE1B3 /* Top10iOSDev.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Top10iOSDev.h; sourceTree = "<group>"; };
 		25A4A34F25A1FBC200BDE1B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -70,6 +72,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2551166125B814E7009B27CB /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				2551166225B81534009B27CB /* XCTestCase+MemoryLeakTracking.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		25A1B65125B4348F00732C3F /* Requirement API */ = {
 			isa = PBXGroup;
 			children = (
@@ -111,6 +121,7 @@
 		25A4A35825A1FBC300BDE1B3 /* Top10iOSDevTests */ = {
 			isa = PBXGroup;
 			children = (
+				2551166125B814E7009B27CB /* Helpers */,
 				25A4A35925A1FBC300BDE1B3 /* Top10iOSDevTests.swift */,
 				25A4A35B25A1FBC300BDE1B3 /* Info.plist */,
 				25A1B65125B4348F00732C3F /* Requirement API */,
@@ -273,6 +284,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				25A4A37325A2072600BDE1B3 /* RemoteRequirementLoaderTests.swift in Sources */,
+				2551166325B81534009B27CB /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 				25D872B625B5EFDF00ED091D /* URLSessionHTTPClientTests.swift in Sources */,
 				25A4A35A25A1FBC300BDE1B3 /* Top10iOSDevTests.swift in Sources */,
 			);
