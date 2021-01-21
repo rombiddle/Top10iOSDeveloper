@@ -78,49 +78,23 @@ class RemoteRequirementLoaderTests: XCTestCase {
     func test_load_deliversItemsOn200HTTPRespnseWithJSONItems() {
         let (sut, client) = makeSUT()
         
-        // first case
-        let cat1 = makeCategory(id: UUID(),
-                             name: "cat name",
-                             groups: [])
+        // first case (empty groups)
+        let cat1 = makeCategory(id: UUID(), name: "cat name", groups: [])
         
-        // 2nd case
-        let item2 = RequirementItem(id: UUID(),
-                                    name: "item name",
-                                    type: .done(nil))
+        // 2nd case (done)
+        let item2 = makeItem(id: UUID(), name: "item name", type: .done(nil))
+        let group2 = makeGroup(id: UUID(), name: "group name", items: [item2])
+        let cat2 = makeCategory(id: UUID(), name: "another cat name", groups: [group2])
         
-        let group2 = RequirementGroup(id: UUID(),
-                                      name: "group name",
-                                      items: [item2])
+        // 3rd case (level)
+        let item3 = makeItem(id: UUID(), name: "item name", type: .level(nil))
+        let group3 = makeGroup(id: UUID(), name: "group name", items: [item3])
+        let cat3 = makeCategory(id: UUID(), name: "another cat name", groups: [group3])
         
-        let cat2 = makeCategory(id: UUID(),
-                             name: "another cat name",
-                             groups: [group2])
-        
-        // 3rd case
-        let item3 = RequirementItem(id: UUID(),
-                                    name: "item name",
-                                    type: .level(nil))
-        
-        let group3 = RequirementGroup(id: UUID(),
-                                      name: "group name",
-                                      items: [item3])
-        
-        let cat3 = makeCategory(id: UUID(),
-                             name: "another cat name",
-                             groups: [group3])
-        
-        // 4th case
-        let item4 = RequirementItem(id: UUID(),
-                                    name: "item name",
-                                    type: .number(nil, nil))
-        
-        let group4 = RequirementGroup(id: UUID(),
-                                      name: "group name",
-                                      items: [item4])
-        
-        let cat4 = makeCategory(id: UUID(),
-                             name: "another cat name",
-                             groups: [group4])
+        // 4th case (number)
+        let item4 = makeItem(id: UUID(), name: "item name", type: .number(nil, nil))
+        let group4 = makeGroup(id: UUID(), name: "group name", items: [item4])
+        let cat4 = makeCategory(id: UUID(), name: "another cat name", groups: [group4])
         
         expect(sut, toCompleteWith: .success([cat1.model, cat2.model, cat3.model, cat4.model])) {
             let json = makeCategoriesJSON([cat1.json, cat2.json, cat3.json, cat4.json])
@@ -131,35 +105,10 @@ class RemoteRequirementLoaderTests: XCTestCase {
     func test_load_deliversItemsWithNumberTypeOn200HTTPRespnseWithJSONItemsWithUnknownTypeItem() {
         let (sut, client) = makeSUT()
         
-        let item = RequirementItem(id: UUID(),
-                                    name: "item name",
-                                    type: .number(nil, nil))
-        
-        let group = RequirementGroup(id: UUID(),
-                                      name: "group name",
-                                      items: [item])
-        
-        let cat = makeCategory(id: UUID(),
-                             name: "another cat name",
-                             groups: [group])
-        
-        let json = [
-            "id": cat.model.id.uuidString,
-            "name": cat.model.name,
-            "groups": cat.model.groups.map { group in
-                return [
-                    "id": group.id.uuidString,
-                    "name": group.name,
-                    "items": group.items.map { item in
-                        return [
-                            "id": item.id.uuidString,
-                            "name": item.name,
-                            "type": anyInt()
-                        ] as [String: Any]
-                    }
-                ] as [String: Any]
-            }
-        ] as [String: Any]
+        let item = makeItem(id: UUID(), name: "item name", type: .number(nil, nil))
+        let group = makeGroup(id: UUID(), name: "group name", items: [item])
+        let cat = makeCategory(id: UUID(), name: "another cat name", groups: [group])
+        let json = jsonValue(for: cat.model)
         
         expect(sut, toCompleteWith: .success([cat.model])) {
             let json = makeCategoriesJSON([json])
@@ -199,11 +148,28 @@ class RemoteRequirementLoaderTests: XCTestCase {
     
     private func makeCategory(id: UUID, name: String, groups: [RequirementGroup]) -> (model: RequirementCategory, json: [String: Any]) {
         let item = RequirementCategory(id: id, name: name, groups: groups)
+        let json = jsonValue(for: item)
         
-        let json = [
-            "id": id.uuidString,
-            "name": name,
-            "groups": groups.map { group in
+        return (item, json)
+    }
+    
+    private func makeGroup(id: UUID, name: String, items: [RequirementItem]) -> RequirementGroup {
+        RequirementGroup(id: id,
+                         name: name,
+                         items: items)
+    }
+    
+    private func makeItem(id: UUID, name: String, type: RequirementType) -> RequirementItem {
+        RequirementItem(id: id,
+                        name: name,
+                        type: type)
+    }
+    
+    private func jsonValue(for item: RequirementCategory) -> [String: Any] {
+        [
+            "id": item.id.uuidString,
+            "name": item.name,
+            "groups": item.groups.map { group in
                 return [
                     "id": group.id.uuidString,
                     "name": group.name,
@@ -217,8 +183,6 @@ class RemoteRequirementLoaderTests: XCTestCase {
                 ] as [String: Any]
             }
         ] as [String: Any]
-        
-        return (item, json)
     }
     
     private func makeCategoriesJSON(_ cats: [[String: Any]]) -> Data {
