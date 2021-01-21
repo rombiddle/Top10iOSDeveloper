@@ -11,7 +11,7 @@ import Top10iOSDev
 class Top10OSDevAPIEndToEndTests: XCTestCase {
 
     func test_endToEndTestServerGetRequirementResult_matchesFixedTestAccountData() {
-        let testServerURL = URL(string: "https://raw.githubusercontent.com/rombiddle/Top10iOSDeveloper/feature/add-requirements-data/requirements.json")!
+        let testServerURL = URL(string: "https://raw.githubusercontent.com/rombiddle/Top10iOSDeveloper/master/requirements.json")!
         let client = URLSessionHTTPClient()
         let loader = RemoteRequirementLoader(url: testServerURL, client: client)
         
