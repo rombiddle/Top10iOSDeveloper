@@ -12,7 +12,7 @@ public enum RequirementType {
     case done(Bool?)
     case number(Int?, String?)
     
-    init?(type: Int) {
+    init(type: Int) {
         switch type {
         case 0: self = .level(nil)
         case 1: self = .done(nil)

@@ -36,7 +36,7 @@ internal final class RequirementCategoryMapper {
         var group: RequirementGroup {
             RequirementGroup(id: id,
                              name: name,
-                             items: items.compactMap { $0.item })
+                             items: items.map { $0.item })
         }
     }
 
@@ -45,14 +45,10 @@ internal final class RequirementCategoryMapper {
         let name: String
         let type: Int
         
-        var item: RequirementItem? {
-            if let rType = RequirementType(type: type) {
-                return RequirementItem(id: id,
-                                       name: name,
-                                       type: rType)
-            } else {
-                return nil
-            }
+        var item: RequirementItem {
+            return RequirementItem(id: id,
+                                   name: name,
+                                   type: RequirementType(type: type))
         }
     }
     
