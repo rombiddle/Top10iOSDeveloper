@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2551166325B81534009B27CB /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2551166225B81534009B27CB /* XCTestCase+MemoryLeakTracking.swift */; };
+		2580833025B963AC000E22AC /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2580832F25B963AC000E22AC /* URLSessionHTTPClient.swift */; };
 		25A4A35525A1FBC300BDE1B3 /* Top10iOSDev.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25A4A34B25A1FBC200BDE1B3 /* Top10iOSDev.framework */; };
 		25A4A35A25A1FBC300BDE1B3 /* Top10iOSDevTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A4A35925A1FBC300BDE1B3 /* Top10iOSDevTests.swift */; };
 		25A4A35C25A1FBC300BDE1B3 /* Top10iOSDev.h in Headers */ = {isa = PBXBuildFile; fileRef = 25A4A34E25A1FBC200BDE1B3 /* Top10iOSDev.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -35,6 +36,7 @@
 
 /* Begin PBXFileReference section */
 		2551166225B81534009B27CB /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
+		2580832F25B963AC000E22AC /* URLSessionHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClient.swift; sourceTree = "<group>"; };
 		25A4A34B25A1FBC200BDE1B3 /* Top10iOSDev.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Top10iOSDev.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		25A4A34E25A1FBC200BDE1B3 /* Top10iOSDev.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Top10iOSDev.h; sourceTree = "<group>"; };
 		25A4A34F25A1FBC200BDE1B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				25A4A5C025A3452B00BDE1B3 /* RemoteRequirementLoader.swift */,
 				25AD654A25B18DC100D21CC6 /* HTTPClient.swift */,
 				25AD667D25B1980900D21CC6 /* RequirementCategoryMapper.swift */,
+				2580832F25B963AC000E22AC /* URLSessionHTTPClient.swift */,
 			);
 			path = "Requirement API";
 			sourceTree = "<group>";
@@ -276,6 +279,7 @@
 				25A4ACC825AA2B3B00BDE1B3 /* RequirementGroup.swift in Sources */,
 				25AD667E25B1980900D21CC6 /* RequirementCategoryMapper.swift in Sources */,
 				25AD5B2D25AEE58C00D21CC6 /* RequirementType.swift in Sources */,
+				2580833025B963AC000E22AC /* URLSessionHTTPClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
