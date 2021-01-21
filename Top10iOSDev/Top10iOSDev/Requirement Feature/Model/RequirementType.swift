@@ -27,6 +27,10 @@ public enum RequirementType {
         default: return 2
         }
     }
+    
+    public static var allCases: [RequirementType] {
+        return [.level(nil), .done(nil), .number(nil, nil)]
+    }
 }
 
 extension RequirementType: Equatable {

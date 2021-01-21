@@ -78,10 +78,12 @@ class RemoteRequirementLoaderTests: XCTestCase {
     func test_load_deliversItemsOn200HTTPRespnseWithJSONItems() {
         let (sut, client) = makeSUT()
         
+        // first case
         let cat1 = makeCategory(id: UUID(),
                              name: "cat name",
                              groups: [])
         
+        // 2nd case
         let item2 = RequirementItem(id: UUID(),
                                     name: "item name",
                                     type: .done(nil))
@@ -94,8 +96,73 @@ class RemoteRequirementLoaderTests: XCTestCase {
                              name: "another cat name",
                              groups: [group2])
         
-        expect(sut, toCompleteWith: .success([cat1.model, cat2.model])) {
-            let json = makeCategoriesJSON([cat1.json, cat2.json])
+        // 3rd case
+        let item3 = RequirementItem(id: UUID(),
+                                    name: "item name",
+                                    type: .level(nil))
+        
+        let group3 = RequirementGroup(id: UUID(),
+                                      name: "group name",
+                                      items: [item3])
+        
+        let cat3 = makeCategory(id: UUID(),
+                             name: "another cat name",
+                             groups: [group3])
+        
+        // 4th case
+        let item4 = RequirementItem(id: UUID(),
+                                    name: "item name",
+                                    type: .number(nil, nil))
+        
+        let group4 = RequirementGroup(id: UUID(),
+                                      name: "group name",
+                                      items: [item4])
+        
+        let cat4 = makeCategory(id: UUID(),
+                             name: "another cat name",
+                             groups: [group4])
+        
+        expect(sut, toCompleteWith: .success([cat1.model, cat2.model, cat3.model, cat4.model])) {
+            let json = makeCategoriesJSON([cat1.json, cat2.json, cat3.json, cat4.json])
+            client.complete(withStatusCode: 200, data: json)
+        }
+    }
+    
+    func test_load_deliversItemsWithNumberTypeOn200HTTPRespnseWithJSONItemsWithUnknownTypeItem() {
+        let (sut, client) = makeSUT()
+        
+        let item = RequirementItem(id: UUID(),
+                                    name: "item name",
+                                    type: .number(nil, nil))
+        
+        let group = RequirementGroup(id: UUID(),
+                                      name: "group name",
+                                      items: [item])
+        
+        let cat = makeCategory(id: UUID(),
+                             name: "another cat name",
+                             groups: [group])
+        
+        let json = [
+            "id": cat.model.id.uuidString,
+            "name": cat.model.name,
+            "groups": cat.model.groups.map { group in
+                return [
+                    "id": group.id.uuidString,
+                    "name": group.name,
+                    "items": group.items.map { item in
+                        return [
+                            "id": item.id.uuidString,
+                            "name": item.name,
+                            "type": anyInt()
+                        ] as [String: Any]
+                    }
+                ] as [String: Any]
+            }
+        ] as [String: Any]
+        
+        expect(sut, toCompleteWith: .success([cat.model])) {
+            let json = makeCategoriesJSON([json])
             client.complete(withStatusCode: 200, data: json)
         }
     }
@@ -204,6 +271,10 @@ class RemoteRequirementLoaderTests: XCTestCase {
                                            headerFields: nil)!
             messages[index].completion(.success(data, response))
         }
+    }
+    
+    private func anyInt() -> Int {
+        Int.random(in: RequirementType.allCases.count..<100)
     }
 
 }
