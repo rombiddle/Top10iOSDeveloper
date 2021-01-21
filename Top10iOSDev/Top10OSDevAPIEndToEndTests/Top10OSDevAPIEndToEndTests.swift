@@ -11,21 +11,7 @@ import Top10iOSDev
 class Top10OSDevAPIEndToEndTests: XCTestCase {
 
     func test_endToEndTestServerGetRequirementResult_matchesFixedTestAccountData() {
-        let testServerURL = URL(string: "https://raw.githubusercontent.com/rombiddle/Top10iOSDeveloper/master/requirements.json")!
-        let client = URLSessionHTTPClient()
-        let loader = RemoteRequirementLoader(url: testServerURL, client: client)
-        
-        let exp = expectation(description: "Wait for load completion")
-        
-        var receivedResult: LoadRequirementResult?
-        loader.load { result in
-            receivedResult = result
-            exp.fulfill()
-        }
-        
-        wait(for: [exp], timeout: 3.0)
-        
-        switch receivedResult {
+        switch getRequirementResult() {
         case let .success(requirements)?:
             let groups = requirements.flatMap({ $0.groups })
             let items = groups.flatMap({ $0.items })
@@ -44,6 +30,24 @@ class Top10OSDevAPIEndToEndTests: XCTestCase {
     }
     
     // MARK: - Helpers
+    
+    private func getRequirementResult() -> LoadRequirementResult? {
+        let testServerURL = URL(string: "https://raw.githubusercontent.com/rombiddle/Top10iOSDeveloper/master/requirements.json")!
+        let client = URLSessionHTTPClient()
+        let loader = RemoteRequirementLoader(url: testServerURL, client: client)
+        
+        let exp = expectation(description: "Wait for load completion")
+        
+        var receivedResult: LoadRequirementResult?
+        loader.load { result in
+            receivedResult = result
+            exp.fulfill()
+        }
+        
+        wait(for: [exp], timeout: 3.0)
+        
+        return receivedResult
+    }
     
     private func expectedRequirements() -> [RequirementCategory] {
         let itemsGroup1 = [
