@@ -31,10 +31,12 @@ class Top10OSDevAPIEndToEndTests: XCTestCase {
     
     // MARK: - Helpers
     
-    private func getRequirementResult() -> LoadRequirementResult? {
+    private func getRequirementResult(file: StaticString = #filePath, line: UInt = #line) -> LoadRequirementResult? {
         let testServerURL = URL(string: "https://raw.githubusercontent.com/rombiddle/Top10iOSDeveloper/master/requirements.json")!
         let client = URLSessionHTTPClient()
         let loader = RemoteRequirementLoader(url: testServerURL, client: client)
+        trackForMemotyLeaks(client, file: file, line: line)
+        trackForMemotyLeaks(loader, file: file, line: line)
         
         let exp = expectation(description: "Wait for load completion")
         

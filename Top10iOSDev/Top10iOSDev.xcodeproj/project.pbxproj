@@ -11,6 +11,7 @@
 		2580833025B963AC000E22AC /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2580832F25B963AC000E22AC /* URLSessionHTTPClient.swift */; };
 		25808AA525B99808000E22AC /* Top10OSDevAPIEndToEndTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25808AA425B99808000E22AC /* Top10OSDevAPIEndToEndTests.swift */; };
 		25808AA725B99808000E22AC /* Top10iOSDev.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25A4A34B25A1FBC200BDE1B3 /* Top10iOSDev.framework */; };
+		25809D1825B9DB75000E22AC /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2551166225B81534009B27CB /* XCTestCase+MemoryLeakTracking.swift */; };
 		25A4A35525A1FBC300BDE1B3 /* Top10iOSDev.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25A4A34B25A1FBC200BDE1B3 /* Top10iOSDev.framework */; };
 		25A4A35A25A1FBC300BDE1B3 /* Top10iOSDevTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A4A35925A1FBC300BDE1B3 /* Top10iOSDevTests.swift */; };
 		25A4A35C25A1FBC300BDE1B3 /* Top10iOSDev.h in Headers */ = {isa = PBXBuildFile; fileRef = 25A4A34E25A1FBC200BDE1B3 /* Top10iOSDev.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -332,6 +333,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				25808AA525B99808000E22AC /* Top10OSDevAPIEndToEndTests.swift in Sources */,
+				25809D1825B9DB75000E22AC /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
