@@ -22,10 +22,10 @@ class Top10OSDevAPIEndToEndTests: XCTestCase {
             XCTAssertEqual(requirements, expectedRequirements())
             
         case let .failure(error)?:
-            XCTFail("expected successful requirements result, got \(error) instead")
+            XCTFail("Expected successful requirements result, got \(error) instead")
             
         default:
-            XCTFail("expected successful requirements result, got no instead")
+            XCTFail("Expected successful requirements result, got no instead")
         }
     }
     
