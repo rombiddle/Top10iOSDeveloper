@@ -191,7 +191,7 @@ GET /requirements
 
 ---
 
-## UML Diagram
+## App Architecture
 
 ![](UMLDiagram.jpg)
 
