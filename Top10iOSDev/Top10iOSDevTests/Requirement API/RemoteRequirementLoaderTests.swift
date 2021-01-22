@@ -57,7 +57,7 @@ class RemoteRequirementLoaderTests: XCTestCase {
         }
     }
     
-    func test_load_deliversErrorOn200HTTPRespnseWithInvalidJSON() {
+    func test_load_deliversErrorOn200HTTPResponseWithInvalidJSON() {
         let (sut, client) = makeSUT()
         
         expect(sut, toCompleteWith: failure(.invalidData)) {
@@ -66,7 +66,7 @@ class RemoteRequirementLoaderTests: XCTestCase {
         }
     }
     
-    func test_load_deliversNoItemsOn200HTTPRespnseWithEmptyJSONList() {
+    func test_load_deliversNoItemsOn200HTTPResponseWithEmptyJSONList() {
         let (sut, client) = makeSUT()
         
         expect(sut, toCompleteWith: .success([])) {
@@ -75,7 +75,7 @@ class RemoteRequirementLoaderTests: XCTestCase {
         }
     }
     
-    func test_load_deliversItemsOn200HTTPRespnseWithJSONItems() {
+    func test_load_deliversItemsOn200HTTPResponseWithJSONItems() {
         let (sut, client) = makeSUT()
         
         // first case (empty groups)
