@@ -176,7 +176,7 @@ GET /requirements
                         {
                             "id": "a UUID",
                             "name": "a name",
-                            "type": "a type"
+                            "type": 0
                         }
                         ...
                     ]
