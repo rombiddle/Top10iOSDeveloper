@@ -191,4 +191,7 @@ GET /requirements
 
 ---
 
+## UML Diagram
+
+![](UMLDiagram.jpg)
 
