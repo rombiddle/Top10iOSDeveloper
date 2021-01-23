@@ -84,10 +84,10 @@ Given the user doesn't have connectivity
 1. System delivers error.
 
 #### Expired cache course (sad path):
-1. System delivers no feed images.
+1. System delivers no requirements.
 
 #### Empty cache course (sad path):
-1. System delivers no feed images.
+1. System delivers no requirements.
 
 ### Validate Requirement Cache Use Case
 
