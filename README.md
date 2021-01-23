@@ -97,7 +97,7 @@ Given the user doesn't have connectivity
 #### Primary course:
 1. Execute "Validate Cache" command with above data.
 2. System retrieves requirement data from cache.
-3. System validates cache is less than `max age`.
+3. System validates cache is less than `Max age`.
 
 #### Retrieval error course (sad path):
 1. System deletes cache.
