@@ -129,11 +129,11 @@ Given the user doesn't have connectivity
 | `type`   | `RequirementType` |
 
 ### Requirement Type
-| Case     | Associated values |
-|----------|-------------------|
+| Case     | Associated value |
+|----------|------------------|
 | `level`  | `Int`             |
-| `done`   | `Bool`            |
-| `number` | `(Int, String)`   |
+| `done`   | `Bool`           |
+| `number` | `(Int, String)`  |
 
 ### Payload contract
 
