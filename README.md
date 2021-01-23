@@ -128,6 +128,13 @@ Given the user doesn't have connectivity
 | `name`   | `String`          |
 | `type`   | `RequirementType` |
 
+### Requirement Type
+| Case     | Associated values |
+|----------|-------------------|
+| `level`  | `Int`             |
+| `done`   | `Bool`            |
+| `number` | `(Int, String)`   |
+
 ### Payload contract
 
 ```
@@ -160,62 +167,6 @@ GET /requirements
     ]
 }
 ```
-
 ## App Architecture
 
 ![](UMLDiagram.jpg)
-
----
-
-## BDD Specs
-
-### Story: user requests to validate a requirement
-
-### Narrative #1
-```
-As an online user,
-I want the app to save my requirements done
-So I can follow my progress 
-```
-
-#### Scenarios (Acceptance criteria)
-```
-Given the user have connectivity
- When the user validate a requirement
- Then the app should validate the requirement remotely 
-  And save in the cache
-```
-
-### Narrative #2
-```
-As an offline user,
-I want the app to save validated requirements locally
-So I can follow my progress
-```
-
-#### Scenarios (Acceptance criteria)
-```
-Given the user does not have connectivity
- When the user validate a requirement
- Then the app should save locally the requirement
-  And the app should save remotly the requirement whenver possible
-
-Given the user does not have connectivity
-  And the cache is full
- When the user requests to save a validated requirement
- Then the app should display an error message
-```
-## Use Cases
-
-### Validate a requirement
-
-#### Data:
-- Requirement items
-
-#### Primary course (happy path):
-1. Execute “Validate Requirement items” command with above data.
-2. System validates requirement items remotely and locally.
-3. System shows validated requirements.
-
-#### No connectivity - error course (sad path):
-1. System delivers error.
