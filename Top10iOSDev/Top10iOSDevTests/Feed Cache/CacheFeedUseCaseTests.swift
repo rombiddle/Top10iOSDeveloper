@@ -22,9 +22,14 @@ class LocalRequirementLoader {
 
 class RequirementStore {
     var deleteCachedRequirementsCallCount: Int = 0
+    var insertCallCount: Int = 0
     
     func deleteCachedRequirements() {
         deleteCachedRequirementsCallCount += 1
+    }
+    
+    func completeDeletion(with error: Error, at index: Int = 0) {
+
     }
 }
 
@@ -45,6 +50,17 @@ class CacheFeedUseCaseTests: XCTestCase {
         XCTAssertEqual(store.deleteCachedRequirementsCallCount, 1)
     }
     
+    func test_save_doesNotRequestCacheInsertionOnDeletionError() {
+        let (sut, store) = makeSUT()
+        let items = [uniqueItem(), uniqueItem()]
+        let deletionError = anyNSError()
+        
+        sut.save(items)
+        store.completeDeletion(with: deletionError)
+        
+        XCTAssertEqual(store.insertCallCount, 0)
+    }
+    
     // MARK: Helpers
     
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: LocalRequirementLoader, store: RequirementStore) {
@@ -57,6 +73,10 @@ class CacheFeedUseCaseTests: XCTestCase {
     
     private func uniqueItem() -> RequirementCategory {
         RequirementCategory(id: UUID(), name: "any", groups: [])
+    }
+    
+    private func anyNSError() -> NSError {
+        NSError(domain: "any error", code: 0)
     }
 
 }
