@@ -17,7 +17,7 @@ class LocalRequirementLoader {
     
     func save(_ items: [RequirementCategory]) {
         store.deleteCachedRequirements { [unowned self] error in
-            if error != nil {
+            if error == nil {
                 self.store.insert(items)
             }
         }
