@@ -165,8 +165,8 @@
 		25A4A35825A1FBC300BDE1B3 /* Top10iOSDevTests */ = {
 			isa = PBXGroup;
 			children = (
-				251E3B6925BEADC20069A2B7 /* Feed Cache */,
 				2551166125B814E7009B27CB /* Helpers */,
+				251E3B6925BEADC20069A2B7 /* Feed Cache */,
 				25A4A35925A1FBC300BDE1B3 /* Top10iOSDevTests.swift */,
 				25A4A35B25A1FBC300BDE1B3 /* Info.plist */,
 				25A1B65125B4348F00732C3F /* Requirement API */,
