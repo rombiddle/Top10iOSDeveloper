@@ -31,15 +31,13 @@ class RequirementStore {
 class CacheFeedUseCaseTests: XCTestCase {
 
     func test_init_doesNotDeleteCacheUponCreation() {
-        let store = RequirementStore()
-        _ = LocalRequirementLoader(store: store)
+        let (_, store) = makeSUT()
         
         XCTAssertEqual(store.deleteCachedRequirementsCallCount, 0)
     }
     
     func test_save_requestsCacheDeletion() {
-        let store = RequirementStore()
-        let sut = LocalRequirementLoader(store: store)
+        let (sut, store) = makeSUT()
         let items = [uniqueItem(), uniqueItem()]
         
         sut.save(items)
@@ -48,6 +46,12 @@ class CacheFeedUseCaseTests: XCTestCase {
     }
     
     // MARK: Helpers
+    
+    private func makeSUT() -> (sut: LocalRequirementLoader, store: RequirementStore) {
+        let store = RequirementStore()
+        let sut = LocalRequirementLoader(store: store)
+        return (sut, store)
+    }
     
     private func uniqueItem() -> RequirementCategory {
         RequirementCategory(id: UUID(), name: "any", groups: [])
