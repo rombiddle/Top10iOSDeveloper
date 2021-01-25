@@ -8,7 +8,7 @@
 import XCTest
 import Top10iOSDev
 
-class RemoteRequirementLoaderTests: XCTestCase {
+class LoadRequirementsFromRemoteUseCaseTests: XCTestCase {
 
     func test_init_doesNotRequestDataFromURL() {
         let url = URL(string: "https://a-url.com")!
