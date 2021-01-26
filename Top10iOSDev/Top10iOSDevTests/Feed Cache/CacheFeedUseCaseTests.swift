@@ -26,8 +26,9 @@ class LocalRequirementLoader {
 
 class RequirementStore {
     typealias DeletionCompletion = (Error?) -> Void
+    
     var deleteCachedRequirementsCallCount = 0
-    var insertCallCount = 0
+    var insertions = [[RequirementCategory]]()
     
     private var deletionCompletions = [DeletionCompletion]()
     
@@ -45,7 +46,7 @@ class RequirementStore {
     }
     
     func insert(_ items: [RequirementCategory]) {
-        insertCallCount += 1
+        insertions.append(items)
     }
 }
 
@@ -74,7 +75,7 @@ class CacheFeedUseCaseTests: XCTestCase {
         sut.save(items)
         store.completeDeletion(with: deletionError)
         
-        XCTAssertEqual(store.insertCallCount, 0)
+        XCTAssertEqual(store.insertions.count, 0)
     }
     
     func test_save_requestNewCacheInsertionOnSuccessfulDeletion() {
@@ -84,7 +85,8 @@ class CacheFeedUseCaseTests: XCTestCase {
         sut.save(items)
         store.completeDeletionSuccessfully()
         
-        XCTAssertEqual(store.insertCallCount, 1)
+        XCTAssertEqual(store.insertions.count, 1)
+        XCTAssertEqual(store.insertions.first, items)
     }
     
     // MARK: Helpers
