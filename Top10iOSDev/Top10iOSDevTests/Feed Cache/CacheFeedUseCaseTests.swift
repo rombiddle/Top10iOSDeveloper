@@ -27,14 +27,18 @@ class LocalRequirementLoader {
 class RequirementStore {
     typealias DeletionCompletion = (Error?) -> Void
     
-    var deleteCachedRequirementsCallCount = 0
-    var insertions = [[RequirementCategory]]()
+    enum ReceivedMessage: Equatable {
+        case deleteCachedRequirements
+        case insert([RequirementCategory])
+    }
+    
+    private(set) var receivedMessages = [ReceivedMessage]()
     
     private var deletionCompletions = [DeletionCompletion]()
     
     func deleteCachedRequirements(completion: @escaping DeletionCompletion) {
-        deleteCachedRequirementsCallCount += 1
         deletionCompletions.append(completion)
+        receivedMessages.append(.deleteCachedRequirements)
     }
     
     func completeDeletion(with error: Error, at index: Int = 0) {
@@ -46,16 +50,16 @@ class RequirementStore {
     }
     
     func insert(_ items: [RequirementCategory]) {
-        insertions.append(items)
+        receivedMessages.append(.insert(items))
     }
 }
 
 class CacheFeedUseCaseTests: XCTestCase {
 
-    func test_init_doesNotDeleteCacheUponCreation() {
+    func test_init_doesNotMessageStoreUponCreation() {
         let (_, store) = makeSUT()
         
-        XCTAssertEqual(store.deleteCachedRequirementsCallCount, 0)
+        XCTAssertEqual(store.receivedMessages, [])
     }
     
     func test_save_requestsCacheDeletion() {
@@ -64,7 +68,7 @@ class CacheFeedUseCaseTests: XCTestCase {
         
         sut.save(items)
         
-        XCTAssertEqual(store.deleteCachedRequirementsCallCount, 1)
+        XCTAssertEqual(store.receivedMessages, [.deleteCachedRequirements])
     }
     
     func test_save_doesNotRequestCacheInsertionOnDeletionError() {
@@ -75,7 +79,7 @@ class CacheFeedUseCaseTests: XCTestCase {
         sut.save(items)
         store.completeDeletion(with: deletionError)
         
-        XCTAssertEqual(store.insertions.count, 0)
+        XCTAssertEqual(store.receivedMessages, [.deleteCachedRequirements])
     }
     
     func test_save_requestNewCacheInsertionOnSuccessfulDeletion() {
@@ -85,8 +89,7 @@ class CacheFeedUseCaseTests: XCTestCase {
         sut.save(items)
         store.completeDeletionSuccessfully()
         
-        XCTAssertEqual(store.insertions.count, 1)
-        XCTAssertEqual(store.insertions.first, items)
+        XCTAssertEqual(store.receivedMessages, [.deleteCachedRequirements, .insert(items)])
     }
     
     // MARK: Helpers
