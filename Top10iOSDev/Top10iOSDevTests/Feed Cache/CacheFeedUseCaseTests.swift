@@ -26,45 +26,12 @@ class LocalRequirementLoader {
     }
 }
 
-class RequirementStore {
+protocol RequirementStore {
     typealias DeletionCompletion = (Error?) -> Void
     typealias InsertionCompletion = (Error?) -> Void
     
-    enum ReceivedMessage: Equatable {
-        case deleteCachedRequirements
-        case insert([RequirementCategory])
-    }
-    
-    private(set) var receivedMessages = [ReceivedMessage]()
-    
-    private var deletionCompletions = [DeletionCompletion]()
-    private var insertionCompletions = [InsertionCompletion]()
-    
-    func deleteCachedRequirements(completion: @escaping DeletionCompletion) {
-        deletionCompletions.append(completion)
-        receivedMessages.append(.deleteCachedRequirements)
-    }
-    
-    func completeDeletion(with error: Error, at index: Int = 0) {
-        deletionCompletions[index](error)
-    }
-    
-    func completeDeletionSuccessfully(at index: Int = 0) {
-        deletionCompletions[index](nil)
-    }
-    
-    func completeInsertion(with error: Error, at index: Int = 0) {
-        insertionCompletions[index](error)
-    }
-    
-    func completeInsertionSuccessfully(at index: Int = 0) {
-        insertionCompletions[index](nil)
-    }
-    
-    func insert(_ items: [RequirementCategory], completion: @escaping InsertionCompletion) {
-        insertionCompletions.append(completion)
-        receivedMessages.append(.insert(items))
-    }
+    func insert(_ items: [RequirementCategory], completion: @escaping InsertionCompletion)
+    func deleteCachedRequirements(completion: @escaping DeletionCompletion)
 }
 
 class CacheFeedUseCaseTests: XCTestCase {
@@ -135,8 +102,8 @@ class CacheFeedUseCaseTests: XCTestCase {
     
     // MARK: Helpers
     
-    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: LocalRequirementLoader, store: RequirementStore) {
-        let store = RequirementStore()
+    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: LocalRequirementLoader, store: RequirementStoreSpy) {
+        let store = RequirementStoreSpy()
         let sut = LocalRequirementLoader(store: store)
         trackForMemotyLeaks(sut, file: file, line: line)
         trackForMemotyLeaks(store, file: file, line: line)
@@ -164,6 +131,44 @@ class CacheFeedUseCaseTests: XCTestCase {
     
     private func anyNSError() -> NSError {
         NSError(domain: "any error", code: 0)
+    }
+    
+    private class RequirementStoreSpy: RequirementStore {
+        enum ReceivedMessage: Equatable {
+            case deleteCachedRequirements
+            case insert([RequirementCategory])
+        }
+        
+        private(set) var receivedMessages = [ReceivedMessage]()
+        
+        private var deletionCompletions = [DeletionCompletion]()
+        private var insertionCompletions = [InsertionCompletion]()
+        
+        func deleteCachedRequirements(completion: @escaping DeletionCompletion) {
+            deletionCompletions.append(completion)
+            receivedMessages.append(.deleteCachedRequirements)
+        }
+        
+        func completeDeletion(with error: Error, at index: Int = 0) {
+            deletionCompletions[index](error)
+        }
+        
+        func completeDeletionSuccessfully(at index: Int = 0) {
+            deletionCompletions[index](nil)
+        }
+        
+        func completeInsertion(with error: Error, at index: Int = 0) {
+            insertionCompletions[index](error)
+        }
+        
+        func completeInsertionSuccessfully(at index: Int = 0) {
+            insertionCompletions[index](nil)
+        }
+        
+        func insert(_ items: [RequirementCategory], completion: @escaping InsertionCompletion) {
+            insertionCompletions.append(completion)
+            receivedMessages.append(.insert(items))
+        }
     }
 
 }
