@@ -20,7 +20,10 @@ class LocalRequirementLoader {
             guard let self = self else { return }
             
             if error == nil {
-                self.store.insert(items, completion: completion)
+                self.store.insert(items) { [weak self] error in
+                    guard self != nil else { return }
+                    completion(error)
+                }
             } else {
                 completion(error)
             }
@@ -111,7 +114,21 @@ class CacheFeedUseCaseTests: XCTestCase {
         
         sut = nil
         store.completeDeletion(with: anyNSError())
+
+        XCTAssertTrue(receivedResult.isEmpty)
+    }
+    
+    func test_save_doesNotDeliverInsertionErrorAfterSUTInstanceHasBeenDeallocated() {
+        let store = RequirementStoreSpy()
+        var sut: LocalRequirementLoader? = LocalRequirementLoader(store: store)
         
+        var receivedResult = [Error?]()
+        sut?.save([uniqueItem()], completion: { receivedResult.append($0) })
+        
+        store.completeDeletionSuccessfully()
+        sut = nil
+        store.completeInsertion(with: anyNSError())
+
         XCTAssertTrue(receivedResult.isEmpty)
     }
     
