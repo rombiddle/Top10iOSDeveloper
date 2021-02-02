@@ -78,7 +78,7 @@ class CacheFeedUseCaseTests: XCTestCase {
         let store = RequirementStoreSpy()
         var sut: LocalRequirementLoader? = LocalRequirementLoader(store: store)
         
-        var receivedResult = [Error?]()
+        var receivedResult = [LocalRequirementLoader.SaveResult]()
         sut?.save([uniqueItem()], completion: { receivedResult.append($0) })
         
         sut = nil
@@ -91,7 +91,7 @@ class CacheFeedUseCaseTests: XCTestCase {
         let store = RequirementStoreSpy()
         var sut: LocalRequirementLoader? = LocalRequirementLoader(store: store)
         
-        var receivedResult = [Error?]()
+        var receivedResult = [LocalRequirementLoader.SaveResult]()
         sut?.save([uniqueItem()], completion: { receivedResult.append($0) })
         
         store.completeDeletionSuccessfully()
