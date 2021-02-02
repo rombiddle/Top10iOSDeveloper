@@ -34,11 +34,3 @@ public final class LocalRequirementLoader {
         }
     }
 }
-
-public protocol RequirementStore {
-    typealias DeletionCompletion = (Error?) -> Void
-    typealias InsertionCompletion = (Error?) -> Void
-    
-    func insert(_ items: [RequirementCategory], completion: @escaping InsertionCompletion)
-    func deleteCachedRequirements(completion: @escaping DeletionCompletion)
-}
