@@ -8,42 +8,6 @@
 import XCTest
 import Top10iOSDev
 
-class LocalRequirementLoader {
-    let store: RequirementStore
-    
-    init(store: RequirementStore) {
-        self.store = store
-    }
-    
-    func save(_ items: [RequirementCategory], completion: @escaping (Error?) -> Void) {
-        store.deleteCachedRequirements { [weak self] error in
-            guard let self = self else { return }
-            
-            if let cacheDeletionError = error {
-                completion(cacheDeletionError)
-            } else {
-                self.cache(items, with: completion)
-            }
-        }
-    }
-    
-    private func cache(_ items: [RequirementCategory], with completion: @escaping (Error?) -> Void) {
-        store.insert(items) { [weak self] error in
-            guard self != nil else { return }
-            
-            completion(error)
-        }
-    }
-}
-
-protocol RequirementStore {
-    typealias DeletionCompletion = (Error?) -> Void
-    typealias InsertionCompletion = (Error?) -> Void
-    
-    func insert(_ items: [RequirementCategory], completion: @escaping InsertionCompletion)
-    func deleteCachedRequirements(completion: @escaping DeletionCompletion)
-}
-
 class CacheFeedUseCaseTests: XCTestCase {
 
     func test_init_doesNotMessageStoreUponCreation() {
