@@ -29,10 +29,47 @@ public final class LocalRequirementLoader {
     }
     
     private func cache(_ items: [RequirementCategory], with completion: @escaping (SaveResult) -> Void) {
-        store.insert(items) { [weak self] error in
+        store.insert(items.toLocal()) { [weak self] error in
             guard self != nil else { return }
             
             completion(error)
+        }
+    }
+}
+
+private extension Array where Element == RequirementCategory {
+    func toLocal() -> [LocalRequirementCategory] {
+        map {
+            LocalRequirementCategory(id: $0.id, name: $0.name, groups: $0.groups.toLocal())
+        }
+    }
+}
+
+private extension Array where Element == RequirementGroup {
+    func toLocal() -> [LocalRequirementGroup] {
+        map {
+            LocalRequirementGroup(id: $0.id, name: $0.name, items: $0.items.toLocal())
+        }
+    }
+}
+
+private extension Array where Element == RequirementItem {
+    func toLocal() -> [LocalRequirementItem] {
+        map {
+            LocalRequirementItem(id: $0.id, name: $0.name, type: $0.type.toLocal())
+        }
+    }
+}
+
+private extension RequirementType {
+    func toLocal() -> LocalRequirementType {
+        switch self {
+        case let .done(isDone):
+            return LocalRequirementType.done(isDone)
+        case let .level(myLevel):
+            return LocalRequirementType.level(myLevel)
+        case let .number(myNb, myTitle):
+            return LocalRequirementType.number(myNb, myTitle)
         }
     }
 }
