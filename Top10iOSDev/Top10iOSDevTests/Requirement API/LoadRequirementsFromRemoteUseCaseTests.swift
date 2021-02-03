@@ -242,3 +242,17 @@ class LoadRequirementsFromRemoteUseCaseTests: XCTestCase {
     }
 
 }
+
+private extension RequirementType {
+    static var allCases: [RequirementType] {
+        return [.level(nil), .done(nil), .number(nil, nil)]
+    }
+    
+    var typeId: Int {
+        switch self {
+        case .level: return 0
+        case .done: return 1
+        default: return 2
+        }
+    }
+}

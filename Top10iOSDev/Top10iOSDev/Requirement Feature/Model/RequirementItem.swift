@@ -8,7 +8,7 @@
 import Foundation
 
 /// ex: Adapter pattern
-public struct RequirementItem {
+public struct RequirementItem: Equatable {
     public let id: UUID
     public let name: String
     public let type: RequirementType
@@ -17,11 +17,5 @@ public struct RequirementItem {
         self.id = id
         self.name = name
         self.type = type
-    }
-}
-
-extension RequirementItem: Equatable {
-    public static func == (lhs: RequirementItem, rhs: RequirementItem) -> Bool {
-        return lhs.id == rhs.id && lhs.name == rhs.name && lhs.type == rhs.type
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum RequirementType {
+public enum RequirementType: Equatable {
     case level(Int?)
     case done(Bool?)
     case number(Int?, String?)
@@ -17,33 +17,6 @@ public enum RequirementType {
         case 0: self = .level(nil)
         case 1: self = .done(nil)
         default: self = .number(nil, nil)
-        }
-    }
-    
-    public var typeId: Int {
-        switch self {
-        case .level: return 0
-        case .done: return 1
-        default: return 2
-        }
-    }
-    
-    public static var allCases: [RequirementType] {
-        return [.level(nil), .done(nil), .number(nil, nil)]
-    }
-}
-
-extension RequirementType: Equatable {
-    public static func == (lhs: RequirementType, rhs: RequirementType) -> Bool {
-        switch (lhs, rhs) {
-        case (let .level(rhsLevel), let .level(lhsLevel)):
-            return rhsLevel == lhsLevel
-        case (let .done(rhsDone), let .done(lhsDone)):
-            return rhsDone == lhsDone
-        case (let .number(rhsInt, rhsString), let .number(lhsInt, lhsSting)):
-            return (rhsInt, rhsString) == (lhsInt, lhsSting)
-        default:
-            return false
         }
     }
 }
