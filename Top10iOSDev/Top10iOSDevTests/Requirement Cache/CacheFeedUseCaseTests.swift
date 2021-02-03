@@ -18,19 +18,17 @@ class CacheFeedUseCaseTests: XCTestCase {
     
     func test_save_requestsCacheDeletion() {
         let (sut, store) = makeSUT()
-        let items = [uniqueItem(), uniqueItem()]
         
-        sut.save(items) { _ in }
+        sut.save(uniqueItems().models) { _ in }
         
         XCTAssertEqual(store.receivedMessages, [.deleteCachedRequirements])
     }
     
     func test_save_doesNotRequestCacheInsertionOnDeletionError() {
         let (sut, store) = makeSUT()
-        let items = [uniqueItem(), uniqueItem()]
         let deletionError = anyNSError()
         
-        sut.save(items) { _ in }
+        sut.save(uniqueItems().models) { _ in }
         store.completeDeletion(with: deletionError)
         
         XCTAssertEqual(store.receivedMessages, [.deleteCachedRequirements])
@@ -38,25 +36,12 @@ class CacheFeedUseCaseTests: XCTestCase {
     
     func test_save_requestNewCacheInsertionOnSuccessfulDeletion() {
         let (sut, store) = makeSUT()
-        let items = [uniqueItem(), uniqueItem()]
-        let localItems = items.map { cat in
-            return LocalRequirementCategory(id: cat.id, name: cat.name, groups: cat.groups.map { group in
-                return LocalRequirementGroup(id: group.id, name: group.name, items: group.items.map { item in
-                    var type: LocalRequirementType = .done(true)
-                    switch item.type {
-                    case let .done(isDone): type = LocalRequirementType.done(isDone)
-                    case let .level(myLevel): type = LocalRequirementType.level(myLevel)
-                    case let .number(myNb, myTitle): type = LocalRequirementType.number(myNb, myTitle)
-                    }
-                    return LocalRequirementItem(id: item.id, name: item.name, type: type)
-                })
-            })
-        }
+        let items = uniqueItems()
         
-        sut.save(items) { _ in }
+        sut.save(items.models) { _ in }
         store.completeDeletionSuccessfully()
         
-        XCTAssertEqual(store.receivedMessages, [.deleteCachedRequirements, .insert(localItems)])
+        XCTAssertEqual(store.receivedMessages, [.deleteCachedRequirements, .insert(items.locals)])
     }
     
     func test_save_failsOnDeletionError() {
@@ -92,7 +77,7 @@ class CacheFeedUseCaseTests: XCTestCase {
         var sut: LocalRequirementLoader? = LocalRequirementLoader(store: store)
         
         var receivedResult = [LocalRequirementLoader.SaveResult]()
-        sut?.save([uniqueItem()], completion: { receivedResult.append($0) })
+        sut?.save(uniqueItems().models, completion: { receivedResult.append($0) })
         
         sut = nil
         store.completeDeletion(with: anyNSError())
@@ -105,7 +90,7 @@ class CacheFeedUseCaseTests: XCTestCase {
         var sut: LocalRequirementLoader? = LocalRequirementLoader(store: store)
         
         var receivedResult = [LocalRequirementLoader.SaveResult]()
-        sut?.save([uniqueItem()], completion: { receivedResult.append($0) })
+        sut?.save(uniqueItems().models, completion: { receivedResult.append($0) })
         
         store.completeDeletionSuccessfully()
         sut = nil
@@ -128,7 +113,7 @@ class CacheFeedUseCaseTests: XCTestCase {
         let exp = expectation(description: "Wait for save completion")
         
         var receivedError: Error?
-        sut.save([uniqueItem()]) { error in
+        sut.save(uniqueItems().models) { error in
             receivedError = error
             exp.fulfill()
         }
@@ -143,6 +128,24 @@ class CacheFeedUseCaseTests: XCTestCase {
         let items = [RequirementItem(id: UUID(), name: "any", type: .done(true))]
         let groups = [RequirementGroup(id: UUID(), name: "any", items: items)]
         return RequirementCategory(id: UUID(), name: "any", groups: groups)
+    }
+    
+    private func uniqueItems() -> (models: [RequirementCategory], locals: [LocalRequirementCategory]) {
+        let items = [uniqueItem(), uniqueItem()]
+        let localItems = items.map { cat in
+            return LocalRequirementCategory(id: cat.id, name: cat.name, groups: cat.groups.map { group in
+                return LocalRequirementGroup(id: group.id, name: group.name, items: group.items.map { item in
+                    var type: LocalRequirementType = .done(true)
+                    switch item.type {
+                    case let .done(isDone): type = LocalRequirementType.done(isDone)
+                    case let .level(myLevel): type = LocalRequirementType.level(myLevel)
+                    case let .number(myNb, myTitle): type = LocalRequirementType.number(myNb, myTitle)
+                    }
+                    return LocalRequirementItem(id: item.id, name: item.name, type: type)
+                })
+            })
+        }
+        return (items, localItems)
     }
     
     private func anyNSError() -> NSError {
