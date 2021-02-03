@@ -7,24 +7,6 @@
 
 import Foundation
 
-internal struct RemoteRequirementCategory: Decodable {
-    internal let id: UUID
-    internal let name: String
-    internal let groups: [RemoteRequirementGroup]
-}
-
-internal struct RemoteRequirementGroup: Decodable {
-    internal let id: UUID
-    internal let name: String
-    internal let items: [RemoteRequirementItem]
-}
-
-internal struct RemoteRequirementItem: Decodable {
-    internal let id: UUID
-    internal let name: String
-    internal let type: Int
-}
-
 internal final class RequirementCategoryMapper {
     private struct Root: Decodable {
         let categories: [RemoteRequirementCategory]
