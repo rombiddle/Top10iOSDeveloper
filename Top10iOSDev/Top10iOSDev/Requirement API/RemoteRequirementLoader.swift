@@ -29,11 +29,44 @@ public final class RemoteRequirementLoader: RequirementLoader {
             
             switch result {
             case let .success(data, response):
-                completion(RequirementCategoryMapper.map(data, from: response))
+                completion(RemoteRequirementLoader.map(data, from: response))
         
             case .failure:
                 completion(.failure(Error.connectivity))
             }
+        }
+    }
+    
+    private static func map(_ data: Data, from response: HTTPURLResponse) -> Result {
+        do {
+            let items = try RequirementCategoryMapper.map(data, from: response)
+            return .success(items.toModels())
+        } catch {
+            return .failure(error)
+        }
+    }
+}
+
+private extension Array where Element == RemoteRequirementCategory {
+    func toModels() -> [RequirementCategory] {
+        map {
+            RequirementCategory(id: $0.id, name: $0.name, groups: $0.groups.toModels())
+        }
+    }
+}
+
+private extension Array where Element == RemoteRequirementGroup {
+    func toModels() -> [RequirementGroup] {
+        map {
+            RequirementGroup(id: $0.id, name: $0.name, items: $0.items.toModels())
+        }
+    }
+}
+
+private extension Array where Element == RemoteRequirementItem {
+    func toModels() -> [RequirementItem] {
+        map {
+            RequirementItem(id: $0.id, name: $0.name, type: RequirementType(type: $0.type))
         }
     }
 }

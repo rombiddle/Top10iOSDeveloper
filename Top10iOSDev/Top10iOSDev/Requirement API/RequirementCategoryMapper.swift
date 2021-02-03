@@ -7,59 +7,37 @@
 
 import Foundation
 
+internal struct RemoteRequirementCategory: Decodable {
+    internal let id: UUID
+    internal let name: String
+    internal let groups: [RemoteRequirementGroup]
+}
+
+internal struct RemoteRequirementGroup: Decodable {
+    internal let id: UUID
+    internal let name: String
+    internal let items: [RemoteRequirementItem]
+}
+
+internal struct RemoteRequirementItem: Decodable {
+    internal let id: UUID
+    internal let name: String
+    internal let type: Int
+}
+
 internal final class RequirementCategoryMapper {
     private struct Root: Decodable {
-        let categories: [Category]
-        
-        var requirements: [RequirementCategory] {
-            categories.map { $0.category }
-        }
-    }
-
-    private struct Category: Decodable {
-        let id: UUID
-        let name: String
-        let groups: [Group]
-        
-        var category: RequirementCategory {
-            RequirementCategory(id: id,
-                                name: name,
-                                groups: groups.map { $0.group })
-        }
-    }
-
-    private struct Group: Decodable {
-        let id: UUID
-        let name: String
-        let items: [Item]
-        
-        var group: RequirementGroup {
-            RequirementGroup(id: id,
-                             name: name,
-                             items: items.map { $0.item })
-        }
-    }
-
-    private struct Item: Decodable {
-        let id: UUID
-        let name: String
-        let type: Int
-        
-        var item: RequirementItem {
-            return RequirementItem(id: id,
-                                   name: name,
-                                   type: RequirementType(type: type))
-        }
+        let categories: [RemoteRequirementCategory]
     }
     
     private static var OK_200: Int { return 200 }
     
-    internal static func map(_ data: Data, from response: HTTPURLResponse) -> RemoteRequirementLoader.Result {
+    internal static func map(_ data: Data, from response: HTTPURLResponse) throws -> [RemoteRequirementCategory] {
         guard response.statusCode == OK_200,
-              let root = try? JSONDecoder().decode(Root.self, from: data) else {
-            return .failure(RemoteRequirementLoader.Error.invalidData)
+            let root = try? JSONDecoder().decode(Root.self, from: data) else {
+            throw RemoteRequirementLoader.Error.invalidData
         }
         
-        return .success(root.requirements)
+        return root.categories
     }
 }
