@@ -41,6 +41,8 @@ public final class LocalRequirementLoader {
         store.retrieve { error in
             if let error = error {
                 completion(.failure(error))
+            } else {
+                completion(.success([]))
             }
         }
     }

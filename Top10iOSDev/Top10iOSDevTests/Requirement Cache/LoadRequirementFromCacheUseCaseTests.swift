@@ -46,6 +46,27 @@ class LoadRequirementFromCacheUseCaseTests: XCTestCase {
         XCTAssertEqual(receivedError as NSError?, retrievalError)
     }
     
+    func test_load_DeliversNoRequirementsOnEmptyCache() {
+        let (sut, store) = makeSUT()
+        let exp = expectation(description: "Wait for load completion")
+
+        var receivedRequirements: [RequirementCategory]?
+        sut.load { result in
+            switch result {
+            case let .success(requirements):
+                receivedRequirements = requirements
+            default:
+                XCTFail("Expected success, got \(result) instead")
+            }
+            exp.fulfill()
+        }
+
+        store.completeRetrievalWithEmptyCache()
+        wait(for: [exp], timeout: 1.0)
+
+        XCTAssertEqual(receivedRequirements, [])
+    }
+    
     // MARK: Helpers
     
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: LocalRequirementLoader, store: RequirementStoreSpy) {
