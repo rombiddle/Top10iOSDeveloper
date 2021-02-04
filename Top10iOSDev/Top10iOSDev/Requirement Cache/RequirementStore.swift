@@ -10,8 +10,9 @@ import Foundation
 public protocol RequirementStore {
     typealias DeletionCompletion = (Error?) -> Void
     typealias InsertionCompletion = (Error?) -> Void
+    typealias RetrievalCompletion = (Error?) -> Void
     
     func insert(_ items: [LocalRequirementCategory], completion: @escaping InsertionCompletion)
     func deleteCachedRequirements(completion: @escaping DeletionCompletion)
-    func retrieve()
+    func retrieve(completion: @escaping RetrievalCompletion)
 }
