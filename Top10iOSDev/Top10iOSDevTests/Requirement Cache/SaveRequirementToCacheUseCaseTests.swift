@@ -8,7 +8,7 @@
 import XCTest
 import Top10iOSDev
 
-class CacheFeedUseCaseTests: XCTestCase {
+class SaveRequirementToCacheUseCaseTests: XCTestCase {
 
     func test_init_doesNotMessageStoreUponCreation() {
         let (_, store) = makeSUT()
