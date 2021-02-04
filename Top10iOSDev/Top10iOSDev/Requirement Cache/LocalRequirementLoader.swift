@@ -11,6 +11,7 @@ public final class LocalRequirementLoader {
     private let store: RequirementStore
     
     public typealias SaveResult = Error?
+    public typealias LoadResult = LoadRequirementResult
     
     public init(store: RequirementStore) {
         self.store = store
@@ -36,8 +37,12 @@ public final class LocalRequirementLoader {
         }
     }
     
-    public func load(with completion: @escaping (Error?) -> Void) {
-        store.retrieve(completion: completion)
+    public func load(with completion: @escaping (LoadResult) -> Void) {
+        store.retrieve { error in
+            if let error = error {
+                completion(.failure(error))
+            }
+        }
     }
 }
 
