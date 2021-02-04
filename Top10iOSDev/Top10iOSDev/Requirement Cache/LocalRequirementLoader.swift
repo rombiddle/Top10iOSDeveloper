@@ -35,6 +35,10 @@ public final class LocalRequirementLoader {
             completion(error)
         }
     }
+    
+    public func load() {
+        store.retrieve()
+    }
 }
 
 private extension Array where Element == RequirementCategory {

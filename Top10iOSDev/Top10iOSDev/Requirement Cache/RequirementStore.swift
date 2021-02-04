@@ -13,4 +13,5 @@ public protocol RequirementStore {
     
     func insert(_ items: [LocalRequirementCategory], completion: @escaping InsertionCompletion)
     func deleteCachedRequirements(completion: @escaping DeletionCompletion)
+    func retrieve()
 }

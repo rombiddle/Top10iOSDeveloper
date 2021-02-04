@@ -12,6 +12,7 @@ class RequirementStoreSpy: RequirementStore {
     enum ReceivedMessage: Equatable {
         case deleteCachedRequirements
         case insert([LocalRequirementCategory])
+        case retrieve
     }
     
     private(set) var receivedMessages = [ReceivedMessage]()
@@ -43,5 +44,9 @@ class RequirementStoreSpy: RequirementStore {
     func insert(_ items: [LocalRequirementCategory], completion: @escaping InsertionCompletion) {
         insertionCompletions.append(completion)
         receivedMessages.append(.insert(items))
+    }
+    
+    func retrieve() {
+        receivedMessages.append(.retrieve)
     }
 }
