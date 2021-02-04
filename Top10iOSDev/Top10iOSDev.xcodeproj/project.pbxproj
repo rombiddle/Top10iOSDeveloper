@@ -32,6 +32,7 @@
 		25DF0D4E25CB17CA006EF7F9 /* LocalRequirementItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DF0D4D25CB17CA006EF7F9 /* LocalRequirementItem.swift */; };
 		25DF0D5325CB17E0006EF7F9 /* LocalRequirementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DF0D5225CB17E0006EF7F9 /* LocalRequirementType.swift */; };
 		25DF0DC725CBDB18006EF7F9 /* LoadRequirementFromCacheUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DF0DC625CBDB17006EF7F9 /* LoadRequirementFromCacheUseCaseTests.swift */; };
+		25DF0DD025CBDF77006EF7F9 /* RequirementStoreSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DF0DCF25CBDF77006EF7F9 /* RequirementStoreSpy.swift */; };
 		25DFF85025C93CD2006EF7F9 /* LocalRequirementLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DFF84F25C93CD2006EF7F9 /* LocalRequirementLoader.swift */; };
 		25DFF85525C93DC4006EF7F9 /* RequirementStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DFF85425C93DC4006EF7F9 /* RequirementStore.swift */; };
 /* End PBXBuildFile section */
@@ -82,6 +83,7 @@
 		25DF0D4D25CB17CA006EF7F9 /* LocalRequirementItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalRequirementItem.swift; sourceTree = "<group>"; };
 		25DF0D5225CB17E0006EF7F9 /* LocalRequirementType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalRequirementType.swift; sourceTree = "<group>"; };
 		25DF0DC625CBDB17006EF7F9 /* LoadRequirementFromCacheUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadRequirementFromCacheUseCaseTests.swift; sourceTree = "<group>"; };
+		25DF0DCF25CBDF77006EF7F9 /* RequirementStoreSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequirementStoreSpy.swift; sourceTree = "<group>"; };
 		25DFF84F25C93CD2006EF7F9 /* LocalRequirementLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalRequirementLoader.swift; sourceTree = "<group>"; };
 		25DFF85425C93DC4006EF7F9 /* RequirementStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequirementStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -116,6 +118,7 @@
 		251E3B6925BEADC20069A2B7 /* Requirement Cache */ = {
 			isa = PBXGroup;
 			children = (
+				25DF0DCE25CBDF68006EF7F9 /* Helpers */,
 				251E3B6A25BEADF00069A2B7 /* SaveRequirementToCacheUseCaseTests.swift */,
 				25DF0DC625CBDB17006EF7F9 /* LoadRequirementFromCacheUseCaseTests.swift */,
 			);
@@ -241,6 +244,14 @@
 				25DF0D4D25CB17CA006EF7F9 /* LocalRequirementItem.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		25DF0DCE25CBDF68006EF7F9 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				25DF0DCF25CBDF77006EF7F9 /* RequirementStoreSpy.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		25DFF84825C93C54006EF7F9 /* Requirement Cache */ = {
@@ -428,6 +439,7 @@
 				25DF0DC725CBDB18006EF7F9 /* LoadRequirementFromCacheUseCaseTests.swift in Sources */,
 				2551166325B81534009B27CB /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 				25D872B625B5EFDF00ED091D /* URLSessionHTTPClientTests.swift in Sources */,
+				25DF0DD025CBDF77006EF7F9 /* RequirementStoreSpy.swift in Sources */,
 				251E3B6B25BEADF00069A2B7 /* SaveRequirementToCacheUseCaseTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
