@@ -30,7 +30,7 @@ public final class LocalRequirementLoader {
     }
     
     private func cache(_ items: [RequirementCategory], with completion: @escaping (SaveResult) -> Void) {
-        store.insert(items.toLocal()) { [weak self] error in
+        store.insert(items.toLocals()) { [weak self] error in
             guard self != nil else { return }
             
             completion(error)
@@ -38,10 +38,15 @@ public final class LocalRequirementLoader {
     }
     
     public func load(with completion: @escaping (LoadResult) -> Void) {
-        store.retrieve { error in
-            if let error = error {
+        store.retrieve { result in
+            switch result {
+            case let .failure(error):
                 completion(.failure(error))
-            } else {
+                
+            case let .found(requirements):
+                completion(.success(requirements.toModels()))
+                
+            case .empty:
                 completion(.success([]))
             }
         }
@@ -49,23 +54,23 @@ public final class LocalRequirementLoader {
 }
 
 private extension Array where Element == RequirementCategory {
-    func toLocal() -> [LocalRequirementCategory] {
+    func toLocals() -> [LocalRequirementCategory] {
         map {
-            LocalRequirementCategory(id: $0.id, name: $0.name, groups: $0.groups.toLocal())
+            LocalRequirementCategory(id: $0.id, name: $0.name, groups: $0.groups.toLocals())
         }
     }
 }
 
 private extension Array where Element == RequirementGroup {
-    func toLocal() -> [LocalRequirementGroup] {
+    func toLocals() -> [LocalRequirementGroup] {
         map {
-            LocalRequirementGroup(id: $0.id, name: $0.name, items: $0.items.toLocal())
+            LocalRequirementGroup(id: $0.id, name: $0.name, items: $0.items.toLocals())
         }
     }
 }
 
 private extension Array where Element == RequirementItem {
-    func toLocal() -> [LocalRequirementItem] {
+    func toLocals() -> [LocalRequirementItem] {
         map {
             LocalRequirementItem(id: $0.id, name: $0.name, type: $0.type.toLocal())
         }
@@ -81,6 +86,43 @@ private extension RequirementType {
             return LocalRequirementType.level(myLevel)
         case let .number(myNb, myTitle):
             return LocalRequirementType.number(myNb, myTitle)
+        }
+    }
+}
+
+private extension Array where Element == LocalRequirementCategory {
+    func toModels() -> [RequirementCategory] {
+        map {
+            RequirementCategory(id: $0.id, name: $0.name, groups: $0.groups.toModels())
+        }
+    }
+}
+
+private extension Array where Element == LocalRequirementGroup {
+    func toModels() -> [RequirementGroup] {
+        map {
+            RequirementGroup(id: $0.id, name: $0.name, items: $0.items.toModels())
+        }
+    }
+}
+
+private extension Array where Element == LocalRequirementItem {
+    func toModels() -> [RequirementItem] {
+        map {
+            RequirementItem(id: $0.id, name: $0.name, type: $0.type.toModel())
+        }
+    }
+}
+
+private extension LocalRequirementType {
+    func toModel() -> RequirementType {
+        switch self {
+        case let .done(isDone):
+            return RequirementType.done(isDone)
+        case let .level(myLevel):
+            return RequirementType.level(myLevel)
+        case let .number(myNb, myTitle):
+            return RequirementType.number(myNb, myTitle)
         }
     }
 }

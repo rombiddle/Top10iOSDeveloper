@@ -30,7 +30,7 @@ class LoadRequirementFromCacheUseCaseTests: XCTestCase {
         
         expect(sut, toCompleteWith: .failure(retrievalError)) {
             store.completeRetrieval(with: retrievalError)
-        }        
+        }
     }
     
     func test_load_DeliversNoRequirementsOnEmptyCache() {
@@ -38,6 +38,15 @@ class LoadRequirementFromCacheUseCaseTests: XCTestCase {
 
         expect(sut, toCompleteWith: .success([])) {
             store.completeRetrievalWithEmptyCache()
+        }
+    }
+    
+    func test_load_DeliversRequirements() {
+        let (sut, store) = makeSUT()
+        let requirements = uniqueItems()
+
+        expect(sut, toCompleteWith: .success(requirements.models)) {
+            store.completeRetrieval(with: requirements.locals)
         }
     }
     
@@ -75,6 +84,30 @@ class LoadRequirementFromCacheUseCaseTests: XCTestCase {
     
     private func anyNSError() -> NSError {
         NSError(domain: "any error", code: 0)
+    }
+    
+    private func uniqueItem() -> RequirementCategory {
+        let items = [RequirementItem(id: UUID(), name: "any", type: .done(true))]
+        let groups = [RequirementGroup(id: UUID(), name: "any", items: items)]
+        return RequirementCategory(id: UUID(), name: "any", groups: groups)
+    }
+    
+    private func uniqueItems() -> (models: [RequirementCategory], locals: [LocalRequirementCategory]) {
+        let items = [uniqueItem(), uniqueItem()]
+        let localItems = items.map { cat in
+            return LocalRequirementCategory(id: cat.id, name: cat.name, groups: cat.groups.map { group in
+                return LocalRequirementGroup(id: group.id, name: group.name, items: group.items.map { item in
+                    var type: LocalRequirementType = .done(true)
+                    switch item.type {
+                    case let .done(isDone): type = LocalRequirementType.done(isDone)
+                    case let .level(myLevel): type = LocalRequirementType.level(myLevel)
+                    case let .number(myNb, myTitle): type = LocalRequirementType.number(myNb, myTitle)
+                    }
+                    return LocalRequirementItem(id: item.id, name: item.name, type: type)
+                })
+            })
+        }
+        return (items, localItems)
     }
 
 }

@@ -53,10 +53,14 @@ class RequirementStoreSpy: RequirementStore {
     }
     
     func completeRetrieval(with error: Error, at index: Int = 0) {
-        retrievalCompletions[index](error)
+        retrievalCompletions[index](.failure(error))
     }
     
     func completeRetrievalWithEmptyCache(at index: Int = 0) {
-        retrievalCompletions[index](nil)
+        retrievalCompletions[index](.empty)
+    }
+    
+    func completeRetrieval(with requirements: [LocalRequirementCategory], at index: Int = 0) {
+        retrievalCompletions[index](.found(requirements: requirements))
     }
 }
