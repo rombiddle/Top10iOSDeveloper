@@ -70,11 +70,19 @@ Given the user doesn't have connectivity
 4. System delivers requirements.
 
 #### Retrieval error course (sad path):
-1. System deletes cache
-2. System delivers error.
+1. System delivers error.
 
 #### Empty cache course (sad path):
 1. System delivers no requirements.
+
+### Validate requirements Cache Use Case
+
+#### Primary course (happy path):
+1. Execute “Validate Cache” command with above data.
+2. System retrieves requirement data from cache.
+
+#### Retrieval error course (sad path):
+1. System deletes cache
 
 ### Save Requirements to Cache Use Case
 
