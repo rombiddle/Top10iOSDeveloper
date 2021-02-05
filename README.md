@@ -65,12 +65,13 @@ Given the user doesn't have connectivity
 
 #### Primary course (happy path):
 1. Execute “Load Requirement items” command with above data.
-2. System fetches requirement data from cache.
+2. System retrieves requirement data from cache.
 3. System creates requirement items from cached data.
 4. System delivers requirements.
 
 #### Retrieval error course (sad path):
-1. System delivers error.
+1. System deletes cache
+2. System delivers error.
 
 #### Empty cache course (sad path):
 1. System delivers no requirements.
