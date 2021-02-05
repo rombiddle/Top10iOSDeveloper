@@ -38,9 +38,10 @@ public final class LocalRequirementLoader {
     }
     
     public func load(with completion: @escaping (LoadResult) -> Void) {
-        store.retrieve { result in
+        store.retrieve { [unowned self] result in
             switch result {
             case let .failure(error):
+                self.store.deleteCachedRequirements { _ in }
                 completion(.failure(error))
                 
             case let .found(requirements):
