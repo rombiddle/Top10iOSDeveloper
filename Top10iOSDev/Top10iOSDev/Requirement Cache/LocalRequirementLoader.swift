@@ -55,8 +55,15 @@ public final class LocalRequirementLoader {
     }
     
     public func validateCache() {
-        store.retrieve { _ in }
-        store.deleteCachedRequirements { _ in }
+        store.retrieve { [unowned self] result in
+            switch result {
+            case .failure:
+                self.store.deleteCachedRequirements { _ in }
+            default:
+                break
+            }
+        }
+        
     }
 }
 
