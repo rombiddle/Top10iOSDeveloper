@@ -43,7 +43,6 @@ public final class LocalRequirementLoader {
             
             switch result {
             case let .failure(error):
-                self.store.deleteCachedRequirements { _ in }
                 completion(.failure(error))
                 
             case let .found(requirements):
@@ -53,6 +52,11 @@ public final class LocalRequirementLoader {
                 completion(.success([]))
             }
         }
+    }
+    
+    public func validateCache() {
+        store.retrieve { _ in }
+        store.deleteCachedRequirements { _ in }
     }
 }
 
