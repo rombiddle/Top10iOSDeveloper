@@ -59,7 +59,8 @@ public final class LocalRequirementLoader {
             switch result {
             case .failure:
                 self.store.deleteCachedRequirements { _ in }
-            default:
+                
+            case .found, .empty:
                 break
             }
         }
