@@ -34,6 +34,18 @@ class ValidateRequirementsCacheUseCaseTests: XCTestCase {
         XCTAssertEqual(store.receivedMessages, [.retrieve])
     }
     
+    func test_validateCache_doesNotDeleteUnvalideCacheAfterSUTInstanceHasBeenDeallocated() {
+        let store = RequirementStoreSpy()
+        var sut: LocalRequirementLoader? = LocalRequirementLoader(store: store)
+        
+        sut?.validateCache()
+        
+        sut = nil
+        store.completeRetrieval(with: anyNSError())
+        
+        XCTAssertEqual(store.receivedMessages, [.retrieve])
+    }
+    
     // MARK: Helpers
     
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: LocalRequirementLoader, store: RequirementStoreSpy) {
