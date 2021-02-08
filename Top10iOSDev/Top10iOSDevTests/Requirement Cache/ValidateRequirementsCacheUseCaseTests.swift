@@ -44,8 +44,4 @@ class ValidateRequirementsCacheUseCaseTests: XCTestCase {
         return (sut, store)
     }
     
-    private func anyNSError() -> NSError {
-        NSError(domain: "any error", code: 0)
-    }
-
 }
