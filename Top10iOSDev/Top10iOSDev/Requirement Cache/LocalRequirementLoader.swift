@@ -16,7 +16,9 @@ public final class LocalRequirementLoader {
     public init(store: RequirementStore) {
         self.store = store
     }
-    
+}
+
+extension LocalRequirementLoader {
     public func save(_ items: [RequirementCategory], completion: @escaping (SaveResult) -> Void) {
         store.deleteCachedRequirements { [weak self] error in
             guard let self = self else { return }
@@ -36,7 +38,9 @@ public final class LocalRequirementLoader {
             completion(error)
         }
     }
-    
+}
+
+extension LocalRequirementLoader {
     public func load(with completion: @escaping (LoadResult) -> Void) {
         store.retrieve { [weak self] result in
             guard self != nil else { return }
@@ -53,7 +57,9 @@ public final class LocalRequirementLoader {
             }
         }
     }
-    
+}
+ 
+extension LocalRequirementLoader {
     public func validateCache() {
         store.retrieve { [weak self] result in
             guard let self = self else { return }
@@ -66,7 +72,6 @@ public final class LocalRequirementLoader {
                 break
             }
         }
-        
     }
 }
 
