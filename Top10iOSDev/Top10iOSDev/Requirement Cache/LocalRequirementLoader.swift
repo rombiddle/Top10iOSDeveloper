@@ -40,8 +40,8 @@ extension LocalRequirementLoader {
     }
 }
 
-extension LocalRequirementLoader {
-    public func load(with completion: @escaping (LoadResult) -> Void) {
+extension LocalRequirementLoader: RequirementLoader {
+    public func load(completion: @escaping (LoadResult) -> Void) {
         store.retrieve { [weak self] result in
             guard self != nil else { return }
             
