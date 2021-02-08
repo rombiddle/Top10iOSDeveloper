@@ -9,16 +9,15 @@ import Foundation
 
 public final class LocalRequirementLoader {
     private let store: RequirementStore
-    
-    public typealias SaveResult = Error?
-    public typealias LoadResult = LoadRequirementResult
-    
+        
     public init(store: RequirementStore) {
         self.store = store
     }
 }
 
 extension LocalRequirementLoader {
+    public typealias SaveResult = Error?
+
     public func save(_ items: [RequirementCategory], completion: @escaping (SaveResult) -> Void) {
         store.deleteCachedRequirements { [weak self] error in
             guard let self = self else { return }
@@ -41,6 +40,8 @@ extension LocalRequirementLoader {
 }
 
 extension LocalRequirementLoader: RequirementLoader {
+    public typealias LoadResult = LoadRequirementResult
+
     public func load(completion: @escaping (LoadResult) -> Void) {
         store.retrieve { [weak self] result in
             guard self != nil else { return }
