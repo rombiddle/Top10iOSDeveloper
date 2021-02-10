@@ -11,12 +11,12 @@
                         {
                             "id": "656bf1ff-173f-427a-b898-9acbd1de93a7",
                             "name": "Test Item 1.1",
-                            "type": level
+                            "type": "level"
                         },
                         {
                             "id": "b53d59e9-0e52-4f72-bbe1-9ec128008233",
                             "name": "Test Item 1.2",
-                            "type": done
+                            "type": "done"
                         }
                     ]
                 },
@@ -27,12 +27,12 @@
                         {
                             "id": "02af9317-1566-41c6-b6f2-3bf344a5e2a4",
                             "name": "Test Item 2.1",
-                            "type": number
+                            "type": "number"
                         },
                         {
                             "id": "748a6ade-eb53-4606-86c4-322f1868d081",
                             "name": "Test Item 2.2",
-                            "type": blabla
+                            "type": "blabla"
                         }
                     ]
                 }
@@ -49,12 +49,12 @@
                         {
                             "id": "a0f83e61-09c7-40ee-a08c-c87b2968fdc9",
                             "name": "Test Item 2.1.1",
-                            "type": number
+                            "type": "number"
                         },
                         {
                             "id": "5bfe62b9-5694-4f39-8fb1-c6f77850cc24",
                             "name": "Test Item 2.1.2",
-                            "type": level
+                            "type": "level"
                         }
                     ]
                 }
