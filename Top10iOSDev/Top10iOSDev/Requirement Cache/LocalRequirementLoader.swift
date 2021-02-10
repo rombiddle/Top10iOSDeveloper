@@ -102,14 +102,7 @@ private extension Array where Element == RequirementItem {
 
 private extension RequirementType {
     func toLocal() -> LocalRequirementType {
-        switch self {
-        case let .done(isDone):
-            return LocalRequirementType.done(isDone)
-        case let .level(myLevel):
-            return LocalRequirementType.level(myLevel)
-        case let .number(myNb, myTitle):
-            return LocalRequirementType.number(myNb, myTitle)
-        }
+        LocalRequirementType.init(rawValue: self.rawValue) ?? .unknown
     }
 }
 
@@ -139,13 +132,6 @@ private extension Array where Element == LocalRequirementItem {
 
 private extension LocalRequirementType {
     func toModel() -> RequirementType {
-        switch self {
-        case let .done(isDone):
-            return RequirementType.done(isDone)
-        case let .level(myLevel):
-            return RequirementType.level(myLevel)
-        case let .number(myNb, myTitle):
-            return RequirementType.number(myNb, myTitle)
-        }
+        RequirementType.init(rawValue: self.rawValue) ?? .unknown
     }
 }

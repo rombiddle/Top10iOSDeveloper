@@ -66,7 +66,7 @@ private extension Array where Element == RemoteRequirementGroup {
 private extension Array where Element == RemoteRequirementItem {
     func toModels() -> [RequirementItem] {
         map {
-            RequirementItem(id: $0.id, name: $0.name, type: RequirementType(type: $0.type))
+            RequirementItem(id: $0.id, name: $0.name, type: RequirementType.init(rawValue: $0.type) ?? .unknown)
         }
     }
 }

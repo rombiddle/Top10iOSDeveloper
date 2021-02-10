@@ -82,17 +82,17 @@ class LoadRequirementsFromRemoteUseCaseTests: XCTestCase {
         let cat1 = makeCategory(id: UUID(), name: "cat name", groups: [])
         
         // 2nd case (done)
-        let item2 = makeItem(id: UUID(), name: "item name", type: .done(nil))
+        let item2 = makeItem(id: UUID(), name: "item name", type: .done)
         let group2 = makeGroup(id: UUID(), name: "group name", items: [item2])
         let cat2 = makeCategory(id: UUID(), name: "another cat name", groups: [group2])
         
         // 3rd case (level)
-        let item3 = makeItem(id: UUID(), name: "item name", type: .level(nil))
+        let item3 = makeItem(id: UUID(), name: "item name", type: .level)
         let group3 = makeGroup(id: UUID(), name: "group name", items: [item3])
         let cat3 = makeCategory(id: UUID(), name: "another cat name", groups: [group3])
         
         // 4th case (number)
-        let item4 = makeItem(id: UUID(), name: "item name", type: .number(nil, nil))
+        let item4 = makeItem(id: UUID(), name: "item name", type: .number)
         let group4 = makeGroup(id: UUID(), name: "group name", items: [item4])
         let cat4 = makeCategory(id: UUID(), name: "another cat name", groups: [group4])
         
@@ -105,7 +105,7 @@ class LoadRequirementsFromRemoteUseCaseTests: XCTestCase {
     func test_load_deliversItemsWithNumberTypeOn200HTTPRespnseWithJSONItemsWithUnknownTypeItem() {
         let (sut, client) = makeSUT()
         
-        let item = makeItem(id: UUID(), name: "item name", type: .number(nil, nil))
+        let item = makeItem(id: UUID(), name: "item name", type: .number)
         let group = makeGroup(id: UUID(), name: "group name", items: [item])
         let cat = makeCategory(id: UUID(), name: "another cat name", groups: [group])
         let json = jsonValue(for: cat.model)
@@ -177,7 +177,7 @@ class LoadRequirementsFromRemoteUseCaseTests: XCTestCase {
                         return [
                             "id": item.id.uuidString,
                             "name": item.name,
-                            "type": item.type.typeId
+                            "type": item.type.rawValue
                         ] as [String: Any]
                     }
                 ] as [String: Any]
@@ -241,18 +241,4 @@ class LoadRequirementsFromRemoteUseCaseTests: XCTestCase {
         Int.random(in: RequirementType.allCases.count..<100)
     }
 
-}
-
-private extension RequirementType {
-    static var allCases: [RequirementType] {
-        return [.level(nil), .done(nil), .number(nil, nil)]
-    }
-    
-    var typeId: Int {
-        switch self {
-        case .level: return 0
-        case .done: return 1
-        default: return 2
-        }
-    }
 }

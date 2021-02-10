@@ -10,5 +10,5 @@ import Foundation
 internal struct RemoteRequirementItem: Decodable {
     internal let id: UUID
     internal let name: String
-    internal let type: Int
+    internal let type: String
 }

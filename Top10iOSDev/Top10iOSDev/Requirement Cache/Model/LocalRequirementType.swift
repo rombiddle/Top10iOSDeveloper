@@ -7,16 +7,9 @@
 
 import Foundation
 
-public enum LocalRequirementType: Equatable {
-    case level(Int?)
-    case done(Bool?)
-    case number(Int?, String?)
-    
-    init(type: Int) {
-        switch type {
-        case 0: self = .level(nil)
-        case 1: self = .done(nil)
-        default: self = .number(nil, nil)
-        }
-    }
+public enum LocalRequirementType: String, Equatable, Encodable {
+    case level
+    case done
+    case number
+    case unknown
 }
