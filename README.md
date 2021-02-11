@@ -152,7 +152,7 @@ GET /requirements
                         {
                             "id": "a UUID",
                             "name": "a name",
-                            "type": 0
+                            "type": "level"
                         }
                         ...
                     ]
