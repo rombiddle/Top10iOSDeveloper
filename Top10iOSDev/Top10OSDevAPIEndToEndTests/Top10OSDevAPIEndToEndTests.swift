@@ -16,9 +16,9 @@ class Top10OSDevAPIEndToEndTests: XCTestCase {
             let groups = requirements.flatMap({ $0.groups })
             let items = groups.flatMap({ $0.items })
             
-            XCTAssertEqual(requirements.count, 1)
-            XCTAssertEqual(groups.count, 2)
-            XCTAssertEqual(items.count, 4)
+            XCTAssertEqual(requirements.count, 2)
+            XCTAssertEqual(groups.count, 3)
+            XCTAssertEqual(items.count, 6)
             XCTAssertEqual(requirements, expectedRequirements())
             
         case let .failure(error)?:
@@ -57,13 +57,13 @@ class Top10OSDevAPIEndToEndTests: XCTestCase {
     
     private func expectedRequirementFirstCategory() -> RequirementCategory {
         let itemsGroup1 = [
-            RequirementItem(id: UUID(uuidString: "656bf1ff-173f-427a-b898-9acbd1de93a7")!, name: "Test Item 1.1", type: .done),
-            RequirementItem(id: UUID(uuidString: "b53d59e9-0e52-4f72-bbe1-9ec128008233")!, name: "Test Item 1.2", type: .number)
+            RequirementItem(id: UUID(uuidString: "656bf1ff-173f-427a-b898-9acbd1de93a7")!, name: "Test Item 1.1", type: .level),
+            RequirementItem(id: UUID(uuidString: "b53d59e9-0e52-4f72-bbe1-9ec128008233")!, name: "Test Item 1.2", type: .done)
         ]
         
         let itemsGroup2 = [
-            RequirementItem(id: UUID(uuidString: "02af9317-1566-41c6-b6f2-3bf344a5e2a4")!, name: "Test Item 2.1", type: .level),
-            RequirementItem(id: UUID(uuidString: "748a6ade-eb53-4606-86c4-322f1868d081")!, name: "Test Item 2.2", type: .done)
+            RequirementItem(id: UUID(uuidString: "02af9317-1566-41c6-b6f2-3bf344a5e2a4")!, name: "Test Item 2.1", type: .number),
+            RequirementItem(id: UUID(uuidString: "748a6ade-eb53-4606-86c4-322f1868d081")!, name: "Test Item 2.2", type: .unknown)
         ]
         
         let groups = [
