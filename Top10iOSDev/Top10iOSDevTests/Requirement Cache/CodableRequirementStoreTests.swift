@@ -9,7 +9,11 @@ import XCTest
 import Top10iOSDev
 
 class CodableRequirementStore {
-    private let storeURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("requirements.store")
+    private let storeURL: URL
+    
+    init(storeURL: URL) {
+        self.storeURL = storeURL
+    }
     
     func retrieve(completion: @escaping RequirementStore.RetrievalCompletion) {
         guard let data = try? Data(contentsOf: storeURL) else {
@@ -171,7 +175,8 @@ class CodableRequirementStoreTests: XCTestCase {
     // - MARK: Helpers
     
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> CodableRequirementStore {
-        let sut = CodableRequirementStore()
+        let storeURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("requirements.store")
+        let sut = CodableRequirementStore(storeURL: storeURL)
         trackForMemotyLeaks(sut, file: file, line: line)
         return sut
     }
