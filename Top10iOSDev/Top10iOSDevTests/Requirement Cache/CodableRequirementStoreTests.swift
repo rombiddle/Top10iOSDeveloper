@@ -105,7 +105,7 @@ class CodableRequirementStoreTests: XCTestCase {
     }
 
     func test_retrieve_delivresEmptyOnEmptyCache() {
-        let sut = CodableRequirementStore()
+        let sut = makeSUT()
         let exp = expectation(description: "Wait for cache retrieval")
         
         sut.retrieve { result in
@@ -124,7 +124,7 @@ class CodableRequirementStoreTests: XCTestCase {
     }
     
     func test_retrieve_hasNoSideEffectsOnEmptyCache() {
-        let sut = CodableRequirementStore()
+        let sut = makeSUT()
         let exp = expectation(description: "Wait for cache retrieval")
         
         sut.retrieve { firstResult in
@@ -145,7 +145,7 @@ class CodableRequirementStoreTests: XCTestCase {
     }
     
     func test_retrieveAfterInsertingToEmptyCache_deliversInsertedValues() {
-        let sut = CodableRequirementStore()
+        let sut = makeSUT()
         let requirements = uniqueItems().locals
         let exp = expectation(description: "Wait for cache retrieval")
         
@@ -166,6 +166,12 @@ class CodableRequirementStoreTests: XCTestCase {
         }
         
         wait(for: [exp], timeout: 1.0)
+    }
+    
+    // - MARK: Helpers
+    
+    private func makeSUT() -> CodableRequirementStore {
+        CodableRequirementStore()
     }
 
 }
