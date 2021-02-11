@@ -16,15 +16,75 @@ class CodableRequirementStore {
             return completion(.empty)
         }
         let decoder = JSONDecoder()
-        let decoded = try! decoder.decode([LocalRequirementCategory].self, from: data)
-        completion(.found(requirements: decoded))
+        let decoded = try! decoder.decode([CodableRequirementCategory].self, from: data)
+        completion(.found(requirements: decoded.map { $0.local }))
     }
     
     func insert(_ items: [LocalRequirementCategory], completion: @escaping RequirementStore.InsertionCompletion) {
         let encoder = JSONEncoder()
-        let encoded = try! encoder.encode(items)
+        let requirements = items.map { CodableRequirementCategory($0) }
+        let encoded = try! encoder.encode(requirements)
         try! encoded.write(to: storeURL)
         completion(nil)
+    }
+
+    private struct CodableRequirementCategory: Equatable, Codable {
+        private let id: UUID
+        private let name: String
+        private let groups: [CodaleRequirementGroup]
+        
+        init(_ requirement: LocalRequirementCategory) {
+            self.id = requirement.id
+            self.name = requirement.name
+            self.groups = requirement.groups.map { CodaleRequirementGroup($0) }
+        }
+        
+        var local: LocalRequirementCategory {
+            LocalRequirementCategory(id: self.id, name: self.name, groups: self.groups.map { $0.local })
+        }
+    }
+    
+    private struct CodaleRequirementGroup: Equatable, Codable {
+        private let id: UUID
+        private let name: String
+        private let items: [CodableRequirementItem]
+        
+        init(_ group: LocalRequirementGroup) {
+            self.id = group.id
+            self.name = group.name
+            self.items = group.items.map { CodableRequirementItem($0) }
+        }
+        
+        var local: LocalRequirementGroup {
+            LocalRequirementGroup(id: self.id, name: self.name, items: self.items.map { $0.local })
+        }
+    }
+    
+    private struct CodableRequirementItem: Equatable, Codable {
+        private let id: UUID
+        private let name: String
+        private let type: CodableRequirementType
+        
+        init(_ item: LocalRequirementItem) {
+            self.id = item.id
+            self.name = item.name
+            self.type = CodableRequirementType(rawValue: item.type.rawValue) ?? .unknown
+        }
+        
+        var local: LocalRequirementItem {
+            LocalRequirementItem(id: self.id, name: self.name, type: self.type.local)
+        }
+    }
+    
+    private enum CodableRequirementType: String, Equatable, Codable {
+        case level
+        case done
+        case number
+        case unknown
+        
+        var local: LocalRequirementType {
+            LocalRequirementType(rawValue: self.rawValue) ?? .unknown
+        }
     }
 }
 
