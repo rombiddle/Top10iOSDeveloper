@@ -106,7 +106,7 @@ class CodableRequirementStoreTests: XCTestCase {
         undoStoreSideEffects()
     }
 
-    func test_retrieve_delivresEmptyOnEmptyCache() {
+    func test_retrieve_deliversEmptyOnEmptyCache() {
         let sut = makeSUT()
         let exp = expectation(description: "Wait for cache retrieval")
         
