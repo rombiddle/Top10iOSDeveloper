@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum LocalRequirementType: String, Equatable, Encodable {
+public enum LocalRequirementType: String, Equatable, Codable {
     case level
     case done
     case number

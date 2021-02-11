@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct LocalRequirementGroup: Equatable, Encodable {
+public struct LocalRequirementGroup: Equatable, Codable {
     public let id: UUID
     public let name: String
     public let items: [LocalRequirementItem]
