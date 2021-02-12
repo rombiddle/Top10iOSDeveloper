@@ -229,14 +229,14 @@ class CodableRequirementStoreTests: XCTestCase {
     
     // - MARK: Helpers
     
-    private func makeSUT(storeURL: URL? = nil, file: StaticString = #filePath, line: UInt = #line) -> CodableRequirementStore {
+    private func makeSUT(storeURL: URL? = nil, file: StaticString = #filePath, line: UInt = #line) -> RequirementStore {
         let sut = CodableRequirementStore(storeURL: storeURL ?? testSpecificStoreURL())
         trackForMemotyLeaks(sut, file: file, line: line)
         return sut
     }
     
     @discardableResult
-    private func insert(_ requirements: [LocalRequirementCategory], to sut: CodableRequirementStore) -> Error? {
+    private func insert(_ requirements: [LocalRequirementCategory], to sut: RequirementStore) -> Error? {
         let exp = expectation(description: "Wait for cache insertion")
         var insertionError: Error?
         sut.insert(requirements) { receivedInsertionError in
@@ -248,7 +248,7 @@ class CodableRequirementStoreTests: XCTestCase {
         return insertionError
     }
     
-    private func deleteCache(from sut: CodableRequirementStore) -> Error? {
+    private func deleteCache(from sut: RequirementStore) -> Error? {
         let exp = expectation(description: "Wait for cache deletion")
         var deletionError: Error?
         sut.deleteCachedRequirements { receivedDeletionError in
@@ -259,7 +259,7 @@ class CodableRequirementStoreTests: XCTestCase {
         return deletionError
     }
     
-    private func expect(_ sut: CodableRequirementStore, toRetrieve expectedResult: RetrieveCachedRequirementResult, file: StaticString = #filePath, line: UInt = #line) {
+    private func expect(_ sut: RequirementStore, toRetrieve expectedResult: RetrieveCachedRequirementResult, file: StaticString = #filePath, line: UInt = #line) {
         let exp = expectation(description: "Wait for cache retrieval")
         
         sut.retrieve { retrievedResult in
@@ -281,7 +281,7 @@ class CodableRequirementStoreTests: XCTestCase {
         wait(for: [exp], timeout: 1.0)
     }
     
-    private func expect(_ sut: CodableRequirementStore, toRetrieveTwice expectedResult: RetrieveCachedRequirementResult, file: StaticString = #filePath, line: UInt = #line) {
+    private func expect(_ sut: RequirementStore, toRetrieveTwice expectedResult: RetrieveCachedRequirementResult, file: StaticString = #filePath, line: UInt = #line) {
         expect(sut, toRetrieve: expectedResult, file: file, line: line)
         expect(sut, toRetrieve: expectedResult, file: file, line: line)
     }
