@@ -9,47 +9,57 @@ import Foundation
 
 public class CodableRequirementStore: RequirementStore {
     private let storeURL: URL
+    private let queue = DispatchQueue(label: "\(CodableRequirementStore.self)Queue", qos: .userInitiated)
     
     public init(storeURL: URL) {
         self.storeURL = storeURL
     }
     
     public func retrieve(completion: @escaping RetrievalCompletion) {
-        guard let data = try? Data(contentsOf: storeURL) else {
-            return completion(.empty)
-        }
-        
-        do {
-            let decoder = JSONDecoder()
-            let decoded = try decoder.decode([CodableRequirementCategory].self, from: data)
-            completion(.found(requirements: decoded.map { $0.local }))
-        } catch {
-            completion(.failure(error))
+        let storeURL = self.storeURL
+        queue.async {
+            guard let data = try? Data(contentsOf: storeURL) else {
+                return completion(.empty)
+            }
+            
+            do {
+                let decoder = JSONDecoder()
+                let decoded = try decoder.decode([CodableRequirementCategory].self, from: data)
+                completion(.found(requirements: decoded.map { $0.local }))
+            } catch {
+                completion(.failure(error))
+            }
         }
     }
     
     public func insert(_ items: [LocalRequirementCategory], completion: @escaping InsertionCompletion) {
-        do {
-            let encoder = JSONEncoder()
-            let requirements = items.map { CodableRequirementCategory($0) }
-            let encoded = try encoder.encode(requirements)
-            try encoded.write(to: storeURL)
-            completion(nil)
-        } catch {
-            completion(error)
+        let storeURL = self.storeURL
+        queue.async {
+            do {
+                let encoder = JSONEncoder()
+                let requirements = items.map { CodableRequirementCategory($0) }
+                let encoded = try encoder.encode(requirements)
+                try encoded.write(to: storeURL)
+                completion(nil)
+            } catch {
+                completion(error)
+            }
         }
     }
     
     public func deleteCachedRequirements(completion: @escaping DeletionCompletion) {
-        guard FileManager.default.fileExists(atPath: storeURL.path) else {
-            return completion(nil)
-        }
+        let storeURL = self.storeURL
+        queue.async {
+            guard FileManager.default.fileExists(atPath: storeURL.path) else {
+                return completion(nil)
+            }
 
-        do {
-            try FileManager.default.removeItem(at: storeURL)
-            completion(nil)
-        } catch {
-            completion(error)
+            do {
+                try FileManager.default.removeItem(at: storeURL)
+                completion(nil)
+            } catch {
+                completion(error)
+            }
         }
     }
 
