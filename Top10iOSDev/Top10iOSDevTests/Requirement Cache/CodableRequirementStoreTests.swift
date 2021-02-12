@@ -8,14 +8,14 @@
 import XCTest
 import Top10iOSDev
 
-class CodableRequirementStore {
+class CodableRequirementStore: RequirementStore {
     private let storeURL: URL
     
     init(storeURL: URL) {
         self.storeURL = storeURL
     }
     
-    func retrieve(completion: @escaping RequirementStore.RetrievalCompletion) {
+    func retrieve(completion: @escaping RetrievalCompletion) {
         guard let data = try? Data(contentsOf: storeURL) else {
             return completion(.empty)
         }
@@ -29,7 +29,7 @@ class CodableRequirementStore {
         }
     }
     
-    func insert(_ items: [LocalRequirementCategory], completion: @escaping RequirementStore.InsertionCompletion) {
+    func insert(_ items: [LocalRequirementCategory], completion: @escaping InsertionCompletion) {
         do {
             let encoder = JSONEncoder()
             let requirements = items.map { CodableRequirementCategory($0) }
@@ -41,7 +41,7 @@ class CodableRequirementStore {
         }
     }
     
-    func deleteCachedRequirements(completion: @escaping RequirementStore.DeletionCompletion) {
+    func deleteCachedRequirements(completion: @escaping DeletionCompletion) {
         guard FileManager.default.fileExists(atPath: storeURL.path) else {
             return completion(nil)
         }
