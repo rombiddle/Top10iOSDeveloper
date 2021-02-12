@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2500661F25D6EF140086CD5A /* CodableRequirementStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2500661E25D6EF140086CD5A /* CodableRequirementStore.swift */; };
 		251E3B6B25BEADF00069A2B7 /* SaveRequirementToCacheUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251E3B6A25BEADF00069A2B7 /* SaveRequirementToCacheUseCaseTests.swift */; };
 		254D6F1225D3C35200CDC0B4 /* CodableRequirementStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254D6F1125D3C35100CDC0B4 /* CodableRequirementStoreTests.swift */; };
 		2551166325B81534009B27CB /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2551166225B81534009B27CB /* XCTestCase+MemoryLeakTracking.swift */; };
@@ -59,6 +60,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2500661E25D6EF140086CD5A /* CodableRequirementStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableRequirementStore.swift; sourceTree = "<group>"; };
 		251E3B6A25BEADF00069A2B7 /* SaveRequirementToCacheUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveRequirementToCacheUseCaseTests.swift; sourceTree = "<group>"; };
 		254D6F1125D3C35100CDC0B4 /* CodableRequirementStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableRequirementStoreTests.swift; sourceTree = "<group>"; };
 		2551166225B81534009B27CB /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
@@ -272,6 +274,7 @@
 				25DF0D3F25CB1796006EF7F9 /* Model */,
 				25DFF84F25C93CD2006EF7F9 /* LocalRequirementLoader.swift */,
 				25DFF85425C93DC4006EF7F9 /* RequirementStore.swift */,
+				2500661E25D6EF140086CD5A /* CodableRequirementStore.swift */,
 			);
 			path = "Requirement Cache";
 			sourceTree = "<group>";
@@ -428,6 +431,7 @@
 				25A4A36C25A1FDD100BDE1B3 /* RequirementLoader.swift in Sources */,
 				25A4A5C125A3452B00BDE1B3 /* RemoteRequirementLoader.swift in Sources */,
 				25A4ACCC25AA2B5A00BDE1B3 /* RequirementCategory.swift in Sources */,
+				2500661F25D6EF140086CD5A /* CodableRequirementStore.swift in Sources */,
 				25DF0D2E25CB16B8006EF7F9 /* RemoteRequirementCategory.swift in Sources */,
 				25DF0D4125CB179E006EF7F9 /* LocalRequirementCategory.swift in Sources */,
 				25DF0D3825CB16EF006EF7F9 /* RemoteRequirementItem.swift in Sources */,
