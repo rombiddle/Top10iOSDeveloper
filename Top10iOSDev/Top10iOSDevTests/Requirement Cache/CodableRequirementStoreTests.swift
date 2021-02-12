@@ -30,11 +30,15 @@ class CodableRequirementStore {
     }
     
     func insert(_ items: [LocalRequirementCategory], completion: @escaping RequirementStore.InsertionCompletion) {
-        let encoder = JSONEncoder()
-        let requirements = items.map { CodableRequirementCategory($0) }
-        let encoded = try! encoder.encode(requirements)
-        try! encoded.write(to: storeURL)
-        completion(nil)
+        do {
+            let encoder = JSONEncoder()
+            let requirements = items.map { CodableRequirementCategory($0) }
+            let encoded = try encoder.encode(requirements)
+            try encoded.write(to: storeURL)
+            completion(nil)
+        } catch {
+            completion(error)
+        }
     }
 
     private struct CodableRequirementCategory: Equatable, Codable {
@@ -170,6 +174,15 @@ class CodableRequirementStoreTests: XCTestCase {
         
         XCTAssertNil(latestInsertionError, "Expected to override cache successfully")
         expect(sut, toRetrieve: .found(requirements: lastestRequirements))
+    }
+    
+    func test_insert_deliversErrorOnInsertionError() {
+        let invalidStoreURL = URL(string: "invalid://store-url")!
+        let sut = makeSUT(storeURL: invalidStoreURL)
+        let requirements = uniqueItems().locals
+        
+        let insertionError = insert(requirements, to: sut)
+        XCTAssertNotNil(insertionError, "Expected cache insertion to fail with an error")
     }
     
     // - MARK: Helpers
