@@ -19,9 +19,14 @@ class CodableRequirementStore {
         guard let data = try? Data(contentsOf: storeURL) else {
             return completion(.empty)
         }
-        let decoder = JSONDecoder()
-        let decoded = try! decoder.decode([CodableRequirementCategory].self, from: data)
-        completion(.found(requirements: decoded.map { $0.local }))
+        
+        do {
+            let decoder = JSONDecoder()
+            let decoded = try decoder.decode([CodableRequirementCategory].self, from: data)
+            completion(.found(requirements: decoded.map { $0.local }))
+        } catch {
+            completion(.failure(error))
+        }
     }
     
     func insert(_ items: [LocalRequirementCategory], completion: @escaping RequirementStore.InsertionCompletion) {
@@ -136,6 +141,14 @@ class CodableRequirementStoreTests: XCTestCase {
         expect(sut, toRetrieveTwice: .found(requirements: requirements))
     }
     
+    func test_retrieve_deliversFailureOnRetrievalError() {
+        let sut = makeSUT()
+        
+        try! "invalidData".write(to: testSpecificStoreURL(), atomically: false, encoding: .utf8)
+        
+        expect(sut, toRetrieve: .failure(anyNSError()))
+    }
+    
     // - MARK: Helpers
     
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> CodableRequirementStore {
@@ -160,7 +173,8 @@ class CodableRequirementStoreTests: XCTestCase {
         
         sut.retrieve { retrievedResult in
             switch (expectedResult, retrievedResult) {
-            case (.empty, .empty):
+            case (.empty, .empty),
+                 (.failure, .failure):
                 break
                 
             case let (.found(expected), .found(retrieved)):
