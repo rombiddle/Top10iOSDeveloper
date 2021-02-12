@@ -159,6 +159,19 @@ class CodableRequirementStoreTests: XCTestCase {
         expect(sut, toRetrieveTwice: .failure(anyNSError()))
     }
     
+    func test_insert_overridesPreviouslyInsertedCacheValues() {
+        let sut = makeSUT()
+        
+        let firstInsertionError = insert(uniqueItems().locals, to: sut)
+        XCTAssertNil(firstInsertionError, "Expected to insert cache successfully")
+        
+        let lastestRequirements = uniqueItems().locals
+        let latestInsertionError = insert(lastestRequirements, to: sut)
+        
+        XCTAssertNil(latestInsertionError, "Expected to override cache successfully")
+        expect(sut, toRetrieve: .found(requirements: lastestRequirements))
+    }
+    
     // - MARK: Helpers
     
     private func makeSUT(storeURL: URL? = nil, file: StaticString = #filePath, line: UInt = #line) -> CodableRequirementStore {
@@ -167,15 +180,17 @@ class CodableRequirementStoreTests: XCTestCase {
         return sut
     }
     
-    private func insert(_ requirements: [LocalRequirementCategory], to sut: CodableRequirementStore) {
+    @discardableResult
+    private func insert(_ requirements: [LocalRequirementCategory], to sut: CodableRequirementStore) -> Error? {
         let exp = expectation(description: "Wait for cache insertion")
-        
-        sut.insert(requirements) { insertionError in
-            XCTAssertNil(insertionError, "Expected requirements to be inserted successfully")
+        var insertionError: Error?
+        sut.insert(requirements) { receivedInsertionError in
+            insertionError = receivedInsertionError
             exp.fulfill()
         }
         
         wait(for: [exp], timeout: 1.0)
+        return insertionError
     }
     
     private func expect(_ sut: CodableRequirementStore, toRetrieve expectedResult: RetrieveCachedRequirementResult, file: StaticString = #filePath, line: UInt = #line) {
