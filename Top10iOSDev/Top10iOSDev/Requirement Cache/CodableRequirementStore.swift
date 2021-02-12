@@ -9,7 +9,7 @@ import Foundation
 
 public class CodableRequirementStore: RequirementStore {
     private let storeURL: URL
-    private let queue = DispatchQueue(label: "\(CodableRequirementStore.self)Queue", qos: .userInitiated)
+    private let queue = DispatchQueue(label: "\(CodableRequirementStore.self)Queue", qos: .userInitiated, attributes: .concurrent)
     
     public init(storeURL: URL) {
         self.storeURL = storeURL
@@ -34,7 +34,7 @@ public class CodableRequirementStore: RequirementStore {
     
     public func insert(_ items: [LocalRequirementCategory], completion: @escaping InsertionCompletion) {
         let storeURL = self.storeURL
-        queue.async {
+        queue.async(flags: .barrier) {
             do {
                 let encoder = JSONEncoder()
                 let requirements = items.map { CodableRequirementCategory($0) }
@@ -49,7 +49,7 @@ public class CodableRequirementStore: RequirementStore {
     
     public func deleteCachedRequirements(completion: @escaping DeletionCompletion) {
         let storeURL = self.storeURL
-        queue.async {
+        queue.async(flags: .barrier) {
             guard FileManager.default.fileExists(atPath: storeURL.path) else {
                 return completion(nil)
             }
