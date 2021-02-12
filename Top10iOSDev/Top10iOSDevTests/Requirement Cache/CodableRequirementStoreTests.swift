@@ -121,14 +121,8 @@ class CodableRequirementStoreTests: XCTestCase {
     func test_retrieveAfterInsertingToEmptyCache_deliversInsertedValues() {
         let sut = makeSUT()
         let requirements = uniqueItems().locals
-        let exp = expectation(description: "Wait for cache retrieval")
         
-        sut.insert(requirements) { insertionError in
-            XCTAssertNil(insertionError, "Expected requirements to be inserted successfully")
-            exp.fulfill()
-        }
-        
-        wait(for: [exp], timeout: 1.0)
+        insert(requirements, to: sut)
         
         expect(sut, toRetrieve: .found(requirements: requirements))
     }
@@ -136,14 +130,8 @@ class CodableRequirementStoreTests: XCTestCase {
     func test_retrieve_hasNoSideEffectsOnNonEmptyCache() {
         let sut = makeSUT()
         let requirements = uniqueItems().locals
-        let exp = expectation(description: "Wait for cache insertion")
         
-        sut.insert(requirements) { insertionError in
-            XCTAssertNil(insertionError, "Expected requirements to be inserted successfully")
-            exp.fulfill()
-        }
-        
-        wait(for: [exp], timeout: 1.0)
+        insert(requirements, to: sut)
         
         expect(sut, toRetrieveTwice: .found(requirements: requirements))
     }
@@ -154,6 +142,17 @@ class CodableRequirementStoreTests: XCTestCase {
         let sut = CodableRequirementStore(storeURL: testSpecificStoreURL())
         trackForMemotyLeaks(sut, file: file, line: line)
         return sut
+    }
+    
+    private func insert(_ requirements: [LocalRequirementCategory], to sut: CodableRequirementStore) {
+        let exp = expectation(description: "Wait for cache insertion")
+        
+        sut.insert(requirements) { insertionError in
+            XCTAssertNil(insertionError, "Expected requirements to be inserted successfully")
+            exp.fulfill()
+        }
+        
+        wait(for: [exp], timeout: 1.0)
     }
     
     private func expect(_ sut: CodableRequirementStore, toRetrieve expectedResult: RetrieveCachedRequirementResult, file: StaticString = #filePath, line: UInt = #line) {
