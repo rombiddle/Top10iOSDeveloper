@@ -136,7 +136,7 @@ class CodableRequirementStoreTests: XCTestCase {
                     break
                     
                 default:
-                    XCTFail("Expected retrieving twice from empty cacheto deliver same empty result, got \(firstResult) and \(firstResult) instead")
+                    XCTFail("Expected retrieving twice from empty cache to deliver same empty result, got \(firstResult) and \(firstResult) instead")
                 }
                 
                 exp.fulfill()
@@ -164,6 +164,33 @@ class CodableRequirementStoreTests: XCTestCase {
                 }
                 
                 exp.fulfill()
+            }
+        }
+        
+        wait(for: [exp], timeout: 1.0)
+    }
+    
+    func test_retrieve_hasNoSideEffectsOnNonEmptyCache() {
+        let sut = makeSUT()
+        let requirements = uniqueItems().locals
+        let exp = expectation(description: "Wait for cache retrieval")
+        
+        sut.insert(requirements) { insertionError in
+            XCTAssertNil(insertionError, "Expected requirements to be inserted successfully")
+            
+            sut.retrieve { firstResult in
+                sut.retrieve { secondResult in
+                    switch (firstResult, secondResult) {
+                    case let (.found(firstFound), .found(secondFound)):
+                        XCTAssertEqual(firstFound, requirements)
+                        XCTAssertEqual(secondFound, requirements)
+                        
+                    default:
+                        XCTFail("Expected retrieving twice from non empty cache to deliver same found result with requirements \(requirements), got \(firstResult) and \(secondResult) instead")
+                    }
+                    
+                    exp.fulfill()
+                }
             }
         }
         
