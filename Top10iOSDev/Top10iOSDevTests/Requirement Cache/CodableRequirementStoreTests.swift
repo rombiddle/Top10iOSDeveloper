@@ -42,6 +42,11 @@ class CodableRequirementStore {
     }
     
     func deleteCachedRequirements(completion: @escaping RequirementStore.DeletionCompletion) {
+        guard FileManager.default.fileExists(atPath: storeURL.path) else {
+            return completion(nil)
+        }
+
+        try! FileManager.default.removeItem(at: storeURL)
         completion(nil)
     }
 
@@ -190,17 +195,31 @@ class CodableRequirementStoreTests: XCTestCase {
     }
     
     func test_delete_hasNoSideEffectsOnEmptyCache() {
-         let sut = makeSUT()
-         let exp = expectation(description: "Wait for cache deletion")
+        let sut = makeSUT()
+        let exp = expectation(description: "Wait for cache deletion")
 
-         sut.deleteCachedRequirements { deletionError in
-             XCTAssertNil(deletionError, "Expected empty cache deletion to succeed")
-             exp.fulfill()
-         }
-         wait(for: [exp], timeout: 1.0)
+        sut.deleteCachedRequirements { deletionError in
+            XCTAssertNil(deletionError, "Expected empty cache deletion to succeed")
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 1.0)
 
-         expect(sut, toRetrieve: .empty)
-     }
+        expect(sut, toRetrieve: .empty)
+    }
+    
+    func test_delete_emptiesPreviouslyInsertedCache() {
+        let sut = makeSUT()
+        insert(uniqueItems().locals, to: sut)
+
+        let exp = expectation(description: "Wait for cache deletion")
+        sut.deleteCachedRequirements { deletionError in
+            XCTAssertNil(deletionError, "Expected non-empty cache deletion to succeed")
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 1.0)
+
+        expect(sut, toRetrieve: .empty)
+    }
     
     // - MARK: Helpers
     
