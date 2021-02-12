@@ -40,6 +40,10 @@ class CodableRequirementStore {
             completion(error)
         }
     }
+    
+    func deleteCachedRequirements(completion: @escaping RequirementStore.DeletionCompletion) {
+        completion(nil)
+    }
 
     private struct CodableRequirementCategory: Equatable, Codable {
         private let id: UUID
@@ -184,6 +188,19 @@ class CodableRequirementStoreTests: XCTestCase {
         let insertionError = insert(requirements, to: sut)
         XCTAssertNotNil(insertionError, "Expected cache insertion to fail with an error")
     }
+    
+    func test_delete_hasNoSideEffectsOnEmptyCache() {
+         let sut = makeSUT()
+         let exp = expectation(description: "Wait for cache deletion")
+
+         sut.deleteCachedRequirements { deletionError in
+             XCTAssertNil(deletionError, "Expected empty cache deletion to succeed")
+             exp.fulfill()
+         }
+         wait(for: [exp], timeout: 1.0)
+
+         expect(sut, toRetrieve: .empty)
+     }
     
     // - MARK: Helpers
     
