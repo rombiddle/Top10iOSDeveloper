@@ -8,36 +8,7 @@
 import XCTest
 import Top10iOSDev
 
-protocol RequirementStoreSpecs {
-    func test_retrieve_deliversEmptyOnEmptyCache()
-    func test_retrieve_hasNoSideEffectsOnEmptyCache()
-    func test_retrieve_deliversFoundValuesOnNonEmptyCache()
-    func test_retrieve_hasNoSideEffectsOnNonEmptyCache()
-    
-    func test_insert_overridesPreviouslyInsertedCacheValues()
-    
-    func test_delete_hasNoSideEffectsOnEmptyCache()
-    func test_delete_emptiesPreviouslyInsertedCache()
-    
-    func test_storeSideEffects_runSerially()
-}
-
-protocol FailableRetrieveRequirementStoreSpecs {
-    func test_retrieve_deliversFailureOnRetrievalError()
-    func test_retrieve_hasNoSideEffectsOnFailure()
-}
-
-protocol FailableInsertRequirementStoreSpecs {
-    func test_insert_deliversErrorOnInsertionError()
-    func test_insert_hasNoSideEffectOnInsertionError()
-}
-
-protocol FailableDeleteRequirementStoreSpecs {
-    func test_delete_deliversErrorOnDeletionError()
-    func test_delete_hasNoSideEffectOnDeletionError()
-}
-
-class CodableRequirementStoreTests: XCTestCase {
+class CodableRequirementStoreTests: XCTestCase, FailableRequirementStore {
     
     override func setUp() {
         super.setUp()
@@ -137,7 +108,7 @@ class CodableRequirementStoreTests: XCTestCase {
         XCTAssertNotNil(insertionError, "Expected cache insertion to fail with an error")
     }
     
-    func test_insert_hasNoSideEffectOnInsertionError() {
+    func test_insert_hasNoSideEffectsOnInsertionError() {
         let invalidStoreURL = URL(string: "invalid://store-url")!
         let sut = makeSUT(storeURL: invalidStoreURL)
         let requirements = uniqueItems().locals
@@ -190,7 +161,7 @@ class CodableRequirementStoreTests: XCTestCase {
         XCTAssertNotNil(deletionError, "Expected cache deletion to fail")
     }
     
-    func test_delete_hasNoSideEffectOnDeletionError() {
+    func test_delete_hasNoSideEffectsOnDeletionError() {
         let noDeletePermissionURL = cachesDirectory()
         let sut = makeSUT(storeURL: noDeletePermissionURL)
 
