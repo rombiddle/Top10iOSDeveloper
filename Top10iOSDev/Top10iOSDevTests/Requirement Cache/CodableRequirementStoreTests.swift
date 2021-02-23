@@ -8,6 +8,35 @@
 import XCTest
 import Top10iOSDev
 
+protocol RequirementStoreSpecs {
+    func test_retrieve_deliversEmptyOnEmptyCache()
+    func test_retrieve_hasNoSideEffectsOnEmptyCache()
+    func test_retrieve_deliversFoundValuesOnNonEmptyCache()
+    func test_retrieve_hasNoSideEffectsOnNonEmptyCache()
+    
+    func test_insert_overridesPreviouslyInsertedCacheValues()
+    
+    func test_delete_hasNoSideEffectsOnEmptyCache()
+    func test_delete_emptiesPreviouslyInsertedCache()
+    
+    func test_storeSideEffects_runSerially()
+}
+
+protocol FailableRetrieveRequirementStoreSpecs {
+    func test_retrieve_deliversFailureOnRetrievalError()
+    func test_retrieve_hasNoSideEffectsOnFailure()
+}
+
+protocol FailableInsertRequirementStoreSpecs {
+    func test_insert_deliversErrorOnInsertionError()
+    func test_insert_hasNoSideEffectOnInsertionError()
+}
+
+protocol FailableDeleteRequirementStoreSpecs {
+    func test_delete_deliversErrorOnDeletionError()
+    func test_delete_hasNoSideEffectOnDeletionError()
+}
+
 class CodableRequirementStoreTests: XCTestCase {
     
     override func setUp() {
@@ -70,16 +99,31 @@ class CodableRequirementStoreTests: XCTestCase {
         expect(sut, toRetrieveTwice: .failure(anyNSError()))
     }
     
-    func test_insert_overridesPreviouslyInsertedCacheValues() {
+    func test_insert_deliversNoErrorOnEmptyCache() {
         let sut = makeSUT()
         
-        let firstInsertionError = insert(uniqueItems().locals, to: sut)
-        XCTAssertNil(firstInsertionError, "Expected to insert cache successfully")
+        let insertionError = insert(uniqueItems().locals, to: sut)
+        
+        XCTAssertNil(insertionError, "Expected to override cache successfully")
+    }
+    
+    func test_insert_deliversNoErrorOnNonEmptyCache() {
+        let sut = makeSUT()
+        insert(uniqueItems().locals, to: sut)
         
         let lastestRequirements = uniqueItems().locals
-        let latestInsertionError = insert(lastestRequirements, to: sut)
+        insert(lastestRequirements, to: sut)
         
-        XCTAssertNil(latestInsertionError, "Expected to override cache successfully")
+        expect(sut, toRetrieve: .found(requirements: lastestRequirements))
+    }
+    
+    func test_insert_overridesPreviouslyInsertedCacheValues() {
+        let sut = makeSUT()
+        insert(uniqueItems().locals, to: sut)
+        
+        let lastestRequirements = uniqueItems().locals
+        insert(lastestRequirements, to: sut)
+        
         expect(sut, toRetrieve: .found(requirements: lastestRequirements))
     }
     
@@ -89,25 +133,51 @@ class CodableRequirementStoreTests: XCTestCase {
         let requirements = uniqueItems().locals
         
         let insertionError = insert(requirements, to: sut)
+        
         XCTAssertNotNil(insertionError, "Expected cache insertion to fail with an error")
+    }
+    
+    func test_insert_hasNoSideEffectOnInsertionError() {
+        let invalidStoreURL = URL(string: "invalid://store-url")!
+        let sut = makeSUT(storeURL: invalidStoreURL)
+        let requirements = uniqueItems().locals
+        
+        insert(requirements, to: sut)
+        
+        expect(sut, toRetrieve: .empty)
+    }
+    
+    func test_delete_deliversNoErrorOnEmptyCache() {
+        let sut = makeSUT()
+        
+        let deletionError = deleteCache(from: sut)
+
+        XCTAssertNil(deletionError, "Expected non-empty cache deletion to succeed")
     }
     
     func test_delete_hasNoSideEffectsOnEmptyCache() {
         let sut = makeSUT()
         
-        let deletionError = deleteCache(from: sut)
+        deleteCache(from: sut)
 
-        XCTAssertNil(deletionError, "Expected empty cache deletion to succeed")
         expect(sut, toRetrieve: .empty)
     }
     
-    func test_delete_emptiesPreviouslyInsertedCache() {
+    func test_delete_deliversNoErrorOnNonEmptyCache() {
         let sut = makeSUT()
         insert(uniqueItems().locals, to: sut)
 
         let deletionError = deleteCache(from: sut)
 
         XCTAssertNil(deletionError, "Expected non-empty cache deletion to succeed")
+    }
+    
+    func test_delete_emptiesPreviouslyInsertedCache() {
+        let sut = makeSUT()
+        insert(uniqueItems().locals, to: sut)
+
+        deleteCache(from: sut)
+
         expect(sut, toRetrieve: .empty)
     }
     
@@ -118,6 +188,14 @@ class CodableRequirementStoreTests: XCTestCase {
         let deletionError = deleteCache(from: sut)
 
         XCTAssertNotNil(deletionError, "Expected cache deletion to fail")
+    }
+    
+    func test_delete_hasNoSideEffectOnDeletionError() {
+        let noDeletePermissionURL = cachesDirectory()
+        let sut = makeSUT(storeURL: noDeletePermissionURL)
+
+        deleteCache(from: sut)
+
         expect(sut, toRetrieve: .empty)
     }
     
@@ -168,6 +246,7 @@ class CodableRequirementStoreTests: XCTestCase {
         return insertionError
     }
     
+    @discardableResult
     private func deleteCache(from sut: RequirementStore) -> Error? {
         let exp = expectation(description: "Wait for cache deletion")
         var deletionError: Error?
