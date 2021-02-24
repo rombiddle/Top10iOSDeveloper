@@ -139,15 +139,11 @@
 			isa = PBXGroup;
 			children = (
 				25DF0DCE25CBDF68006EF7F9 /* Helpers */,
+				259ECBC525E63DD400E3F4BA /* RequirementStoreSpecs */,
 				251E3B6A25BEADF00069A2B7 /* SaveRequirementToCacheUseCaseTests.swift */,
 				25DF0DC625CBDB17006EF7F9 /* LoadRequirementFromCacheUseCaseTests.swift */,
 				25DF225C25CDA381006EF7F9 /* ValidateRequirementsCacheUseCaseTests.swift */,
 				254D6F1125D3C35100CDC0B4 /* CodableRequirementStoreTests.swift */,
-				259ECBB625E637D400E3F4BA /* XCTestCase+FailableRetrieveFeedStoreSpecs.swift */,
-				259ECBB125E57B8100E3F4BA /* XCTestCase+RequirementStoreSpecs.swift */,
-				259ECBBB25E63BD000E3F4BA /* XCTestCase+FailableInsertRequirementStoreSpecs.swift */,
-				259ECBC025E63D2400E3F4BA /* XCTestCase+FailableDeleteRequirementStoreSpecs.swift */,
-				259ECBAC25E57AD400E3F4BA /* RequirementStoreSpecs.swift */,
 			);
 			path = "Requirement Cache";
 			sourceTree = "<group>";
@@ -168,6 +164,18 @@
 				25808AA425B99808000E22AC /* Top10OSDevAPIEndToEndTests.swift */,
 			);
 			path = Top10OSDevAPIEndToEndTests;
+			sourceTree = "<group>";
+		};
+		259ECBC525E63DD400E3F4BA /* RequirementStoreSpecs */ = {
+			isa = PBXGroup;
+			children = (
+				259ECBAC25E57AD400E3F4BA /* RequirementStoreSpecs.swift */,
+				259ECBB625E637D400E3F4BA /* XCTestCase+FailableRetrieveFeedStoreSpecs.swift */,
+				259ECBB125E57B8100E3F4BA /* XCTestCase+RequirementStoreSpecs.swift */,
+				259ECBBB25E63BD000E3F4BA /* XCTestCase+FailableInsertRequirementStoreSpecs.swift */,
+				259ECBC025E63D2400E3F4BA /* XCTestCase+FailableDeleteRequirementStoreSpecs.swift */,
+			);
+			path = RequirementStoreSpecs;
 			sourceTree = "<group>";
 		};
 		25A1B65125B4348F00732C3F /* Requirement API */ = {
