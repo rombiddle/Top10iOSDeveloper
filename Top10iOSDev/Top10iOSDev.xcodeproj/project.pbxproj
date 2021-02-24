@@ -18,6 +18,7 @@
 		259ECBAD25E57AD400E3F4BA /* RequirementStoreSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259ECBAC25E57AD400E3F4BA /* RequirementStoreSpecs.swift */; };
 		259ECBB225E57B8100E3F4BA /* XCTestCase+RequirementStoreSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259ECBB125E57B8100E3F4BA /* XCTestCase+RequirementStoreSpecs.swift */; };
 		259ECBB725E637D400E3F4BA /* XCTestCase+FailableRetrieveFeedStoreSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259ECBB625E637D400E3F4BA /* XCTestCase+FailableRetrieveFeedStoreSpecs.swift */; };
+		259ECBBC25E63BD000E3F4BA /* XCTestCase+FailableInsertRequirementStoreSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259ECBBB25E63BD000E3F4BA /* XCTestCase+FailableInsertRequirementStoreSpecs.swift */; };
 		25A4A35525A1FBC300BDE1B3 /* Top10iOSDev.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25A4A34B25A1FBC200BDE1B3 /* Top10iOSDev.framework */; };
 		25A4A36825A1FC3100BDE1B3 /* RequirementItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A4A36725A1FC3100BDE1B3 /* RequirementItem.swift */; };
 		25A4A36C25A1FDD100BDE1B3 /* RequirementLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A4A36B25A1FDD100BDE1B3 /* RequirementLoader.swift */; };
@@ -74,6 +75,7 @@
 		259ECBAC25E57AD400E3F4BA /* RequirementStoreSpecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequirementStoreSpecs.swift; sourceTree = "<group>"; };
 		259ECBB125E57B8100E3F4BA /* XCTestCase+RequirementStoreSpecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+RequirementStoreSpecs.swift"; sourceTree = "<group>"; };
 		259ECBB625E637D400E3F4BA /* XCTestCase+FailableRetrieveFeedStoreSpecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+FailableRetrieveFeedStoreSpecs.swift"; sourceTree = "<group>"; };
+		259ECBBB25E63BD000E3F4BA /* XCTestCase+FailableInsertRequirementStoreSpecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+FailableInsertRequirementStoreSpecs.swift"; sourceTree = "<group>"; };
 		25A4A34B25A1FBC200BDE1B3 /* Top10iOSDev.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Top10iOSDev.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		25A4A34F25A1FBC200BDE1B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		25A4A35425A1FBC300BDE1B3 /* Top10iOSDevTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Top10iOSDevTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -141,6 +143,7 @@
 				254D6F1125D3C35100CDC0B4 /* CodableRequirementStoreTests.swift */,
 				259ECBB625E637D400E3F4BA /* XCTestCase+FailableRetrieveFeedStoreSpecs.swift */,
 				259ECBB125E57B8100E3F4BA /* XCTestCase+RequirementStoreSpecs.swift */,
+				259ECBBB25E63BD000E3F4BA /* XCTestCase+FailableInsertRequirementStoreSpecs.swift */,
 				259ECBAC25E57AD400E3F4BA /* RequirementStoreSpecs.swift */,
 			);
 			path = "Requirement Cache";
@@ -466,6 +469,7 @@
 				259ECBB225E57B8100E3F4BA /* XCTestCase+RequirementStoreSpecs.swift in Sources */,
 				2551166325B81534009B27CB /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 				25D872B625B5EFDF00ED091D /* URLSessionHTTPClientTests.swift in Sources */,
+				259ECBBC25E63BD000E3F4BA /* XCTestCase+FailableInsertRequirementStoreSpecs.swift in Sources */,
 				25C0F78725CDC06A00F31AAC /* SharedTestHelpers.swift in Sources */,
 				254D6F1225D3C35200CDC0B4 /* CodableRequirementStoreTests.swift in Sources */,
 				259ECBB725E637D400E3F4BA /* XCTestCase+FailableRetrieveFeedStoreSpecs.swift in Sources */,
