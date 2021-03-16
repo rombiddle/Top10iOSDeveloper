@@ -28,7 +28,7 @@ public final class RemoteRequirementLoader: RequirementLoader {
             guard self != nil else { return }
             
             switch result {
-            case let .success(data, response):
+            case let .success((data, response)):
                 completion(RemoteRequirementLoader.map(data, from: response))
         
             case .failure:
