@@ -16,7 +16,7 @@ public final class RemoteRequirementLoader: RequirementLoader {
         case invalidData
     }
     
-    public typealias Result = LoadRequirementResult
+    public typealias Result = RequirementLoader.Result
     
     public init(url: URL, client: HTTPClient) {
         self.url = url

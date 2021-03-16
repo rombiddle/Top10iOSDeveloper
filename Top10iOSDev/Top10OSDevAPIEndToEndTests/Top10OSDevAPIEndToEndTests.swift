@@ -31,7 +31,7 @@ class Top10OSDevAPIEndToEndTests: XCTestCase {
     
     // MARK: - Helpers
     
-    private func getRequirementResult(file: StaticString = #filePath, line: UInt = #line) -> LoadRequirementResult? {
+    private func getRequirementResult(file: StaticString = #filePath, line: UInt = #line) -> RequirementLoader.Result? {
         let testServerURL = URL(string: "https://raw.githubusercontent.com/rombiddle/Top10iOSDeveloper/feature/add-cache-module/requirements.json")!
         let client = URLSessionHTTPClient(session: URLSession(configuration: .ephemeral))
         let loader = RemoteRequirementLoader(url: testServerURL, client: client)
@@ -40,7 +40,7 @@ class Top10OSDevAPIEndToEndTests: XCTestCase {
         
         let exp = expectation(description: "Wait for load completion")
         
-        var receivedResult: LoadRequirementResult?
+        var receivedResult: RequirementLoader.Result?
         loader.load { result in
             receivedResult = result
             exp.fulfill()

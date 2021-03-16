@@ -40,7 +40,7 @@ extension LocalRequirementLoader {
 }
 
 extension LocalRequirementLoader: RequirementLoader {
-    public typealias LoadResult = LoadRequirementResult
+    public typealias LoadResult = RequirementLoader.Result
 
     public func load(completion: @escaping (LoadResult) -> Void) {
         store.retrieve { [weak self] result in

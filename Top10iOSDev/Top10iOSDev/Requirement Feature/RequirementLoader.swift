@@ -7,8 +7,8 @@
 
 import Foundation
 
-public typealias LoadRequirementResult = Result<[RequirementCategory], Error>
-
 public protocol RequirementLoader {
-    func load(completion: @escaping (LoadRequirementResult) -> Void)
+    typealias Result = Swift.Result<[RequirementCategory], Error>
+    
+    func load(completion: @escaping (Result) -> Void)
 }
