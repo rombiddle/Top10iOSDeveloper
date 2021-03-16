@@ -7,10 +7,7 @@
 
 import Foundation
 
-public enum LoadRequirementResult {
-    case success([RequirementCategory])
-    case failure(Error)
-}
+public typealias LoadRequirementResult = Result<[RequirementCategory], Error>
 
 public protocol RequirementLoader {
     func load(completion: @escaping (LoadRequirementResult) -> Void)
