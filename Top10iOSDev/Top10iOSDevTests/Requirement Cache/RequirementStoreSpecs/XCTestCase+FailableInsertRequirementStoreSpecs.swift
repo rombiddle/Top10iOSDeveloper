@@ -18,6 +18,6 @@ extension FailableInsertRequirementStoreSpecs where Self: XCTestCase {
     func assertThatInsertHasNoSideEffectsOnInsertionError(on sut: RequirementStore, file: StaticString = #file, line: UInt = #line) {
         insert(uniqueItems().locals, to: sut)
 
-        expect(sut, toRetrieve: .empty, file: file, line: line)
+        expect(sut, toRetrieve: .success(.empty), file: file, line: line)
     }
 }

@@ -19,13 +19,13 @@ public class CodableRequirementStore: RequirementStore {
         let storeURL = self.storeURL
         queue.async {
             guard let data = try? Data(contentsOf: storeURL) else {
-                return completion(.empty)
+                return completion(.success(.empty))
             }
             
             do {
                 let decoder = JSONDecoder()
                 let decoded = try decoder.decode([CodableRequirementCategory].self, from: data)
-                completion(.found(requirements: decoded.map { $0.local }))
+                completion(.success(.found(requirements: decoded.map { $0.local })))
             } catch {
                 completion(.failure(error))
             }

@@ -50,10 +50,10 @@ extension LocalRequirementLoader: RequirementLoader {
             case let .failure(error):
                 completion(.failure(error))
                 
-            case let .found(requirements):
+            case let .success(.found(requirements)):
                 completion(.success(requirements.toModels()))
                 
-            case .empty:
+            case .success(.empty):
                 completion(.success([]))
             }
         }
@@ -69,7 +69,7 @@ extension LocalRequirementLoader {
             case .failure:
                 self.store.deleteCachedRequirements { _ in }
                 
-            case .found, .empty:
+            case .success:
                 break
             }
         }
