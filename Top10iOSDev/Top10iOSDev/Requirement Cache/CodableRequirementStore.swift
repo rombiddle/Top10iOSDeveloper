@@ -40,9 +40,9 @@ public class CodableRequirementStore: RequirementStore {
                 let requirements = items.map { CodableRequirementCategory($0) }
                 let encoded = try encoder.encode(requirements)
                 try encoded.write(to: storeURL)
-                completion(nil)
+                completion(.success(()))
             } catch {
-                completion(error)
+                completion(.failure(error))
             }
         }
     }
@@ -51,14 +51,14 @@ public class CodableRequirementStore: RequirementStore {
         let storeURL = self.storeURL
         queue.async(flags: .barrier) {
             guard FileManager.default.fileExists(atPath: storeURL.path) else {
-                return completion(nil)
+                return completion(.success(()))
             }
 
             do {
                 try FileManager.default.removeItem(at: storeURL)
-                completion(nil)
+                completion(.success(()))
             } catch {
-                completion(error)
+                completion(.failure(error))
             }
         }
     }

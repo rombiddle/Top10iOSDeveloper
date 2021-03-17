@@ -123,8 +123,8 @@ extension RequirementStoreSpecs where Self: XCTestCase {
     func insert(_ requirements: [LocalRequirementCategory], to sut: RequirementStore) -> Error? {
         let exp = expectation(description: "Wait for cache insertion")
         var insertionError: Error?
-        sut.insert(requirements) { receivedInsertionError in
-            insertionError = receivedInsertionError
+        sut.insert(requirements) { result in
+            if case let Result.failure(error) = result { insertionError = error }
             exp.fulfill()
         }
         
@@ -136,8 +136,8 @@ extension RequirementStoreSpecs where Self: XCTestCase {
     func deleteCache(from sut: RequirementStore) -> Error? {
         let exp = expectation(description: "Wait for cache deletion")
         var deletionError: Error?
-        sut.deleteCachedRequirements { receivedDeletionError in
-            deletionError = receivedDeletionError
+        sut.deleteCachedRequirements { result in
+            if case let Result.failure(error) = result { deletionError = error }
             exp.fulfill()
         }
         wait(for: [exp], timeout: 1.0)

@@ -16,16 +16,18 @@ public final class LocalRequirementLoader {
 }
 
 extension LocalRequirementLoader {
-    public typealias SaveResult = Error?
+    public typealias SaveResult = Result<Void, Error>
 
     public func save(_ items: [RequirementCategory], completion: @escaping (SaveResult) -> Void) {
-        store.deleteCachedRequirements { [weak self] error in
+        store.deleteCachedRequirements { [weak self] deletionResult in
             guard let self = self else { return }
             
-            if let cacheDeletionError = error {
-                completion(cacheDeletionError)
-            } else {
+            switch deletionResult {
+            case .success:
                 self.cache(items, with: completion)
+                
+            case let .failure(error):
+                completion(.failure(error))
             }
         }
     }
