@@ -7,11 +7,8 @@
 
 import Foundation
 
-public enum LoadRequirementResult {
-    case success([RequirementCategory])
-    case failure(Error)
-}
-
 public protocol RequirementLoader {
-    func load(completion: @escaping (LoadRequirementResult) -> Void)
+    typealias Result = Swift.Result<[RequirementCategory], Error>
+    
+    func load(completion: @escaping (Result) -> Void)
 }

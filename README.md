@@ -32,15 +32,8 @@ So I can always see the requirements
 ```
 Given the user doesn't have connectivity
   And there’s a cached version of the requirements
-  And the cache is less than seven days old
  When the user requests to see the feed
- Then the app should display the latest requirements saved
- 
- Given the user doesn't have connectivity
-   And there’s a cached version of the requirements
-   And the cache is seven days old or more
-  When the user requests to see the requirements
-  Then the app should display an error message
+ Then the app should display the requirements saved
   
 Given the user doesn't have connectivity
   And the cache is empty
@@ -63,47 +56,51 @@ Given the user doesn't have connectivity
 5. System delivers requirements.
 
 #### Invalid data - error course (sad path):
-1. System delivers error.
+1. System delivers invalid data error.
 
 #### No connectivity - error course (sad path):
-1. System delivers error.
+1. System delivers connectivity error.
 
 ### Load requirements From Cache Use Case
 
-#### Data:
-- Max age
-
 #### Primary course (happy path):
-1. Execute “Retrieve Requirement items” command with above data.
-2. System fetches requirement data from cache.
-3. System validates cache is less than `Max age`.
-4. System creates requirement items  from cached data.
-5. System delivers requirements.
+1. Execute “Load Requirement items” command with above data.
+2. System retrieves requirement data from cache.
+3. System creates requirement items from cached data.
+4. System delivers requirements.
 
 #### Retrieval error course (sad path):
 1. System delivers error.
-
-#### Expired cache course (sad path):
-1. System delivers no requirements.
 
 #### Empty cache course (sad path):
 1. System delivers no requirements.
 
-### Validate Requirement Cache Use Case
+### Validate requirements Cache Use Case
 
-#### Data:
-- Max age
-
-#### Primary course:
-1. Execute "Validate Cache" command with above data.
+#### Primary course (happy path):
+1. Execute “Validate Cache” command with above data.
 2. System retrieves requirement data from cache.
-3. System validates cache is less than `Max age`.
 
 #### Retrieval error course (sad path):
-1. System deletes cache.
+1. System deletes cache
 
-#### Expired cache course (sad path):
-1. System deletes cache.
+### Save Requirements to Cache Use Case
+
+#### Data:
+- Requirement items
+
+#### Primary course:
+1. Execute "Save Requirement Items" command with above data.
+2. System deletes old cache data.
+3. System encode requirement items.
+4. System saves new cache data.
+5. System delivers success message.
+
+#### Deleting error course (sad path):
+1. System delivers an error.
+
+#### Saving error course (sad path):
+1. System delivers an error.
 
 ## Model Specs
 
@@ -155,7 +152,7 @@ GET /requirements
                         {
                             "id": "a UUID",
                             "name": "a name",
-                            "type": 0
+                            "type": "level"
                         }
                         ...
                     ]

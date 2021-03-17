@@ -11,12 +11,12 @@
                         {
                             "id": "656bf1ff-173f-427a-b898-9acbd1de93a7",
                             "name": "Test Item 1.1",
-                            "type": 1
+                            "type": "level"
                         },
                         {
                             "id": "b53d59e9-0e52-4f72-bbe1-9ec128008233",
                             "name": "Test Item 1.2",
-                            "type": 2
+                            "type": "done"
                         }
                     ]
                 },
@@ -27,12 +27,34 @@
                         {
                             "id": "02af9317-1566-41c6-b6f2-3bf344a5e2a4",
                             "name": "Test Item 2.1",
-                            "type": 0
+                            "type": "number"
                         },
                         {
                             "id": "748a6ade-eb53-4606-86c4-322f1868d081",
                             "name": "Test Item 2.2",
-                            "type": 1
+                            "type": "blabla"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "300ab5f8-d958-4980-879c-86357fbacf90",
+            "name": "Test category 2",
+            "groups": [
+                {
+                    "id": "987aba07-947e-4f9a-9d65-1dff81d98c91",
+                    "name": "Test group 2 from cat 2",
+                    "items": [
+                        {
+                            "id": "a0f83e61-09c7-40ee-a08c-c87b2968fdc9",
+                            "name": "Test Item 2.1.1",
+                            "type": "number"
+                        },
+                        {
+                            "id": "5bfe62b9-5694-4f39-8fb1-c6f77850cc24",
+                            "name": "Test Item 2.1.2",
+                            "type": "level"
                         }
                     ]
                 }
