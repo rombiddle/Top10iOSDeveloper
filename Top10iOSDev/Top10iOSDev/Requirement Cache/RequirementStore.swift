@@ -16,8 +16,11 @@ public struct CachedRequirements {
 }
 
 public protocol RequirementStore {
-    typealias DeletionCompletion = (Error?) -> Void
-    typealias InsertionCompletion = (Error?) -> Void
+    typealias DeletionError = Error?
+    typealias DeletionCompletion = (DeletionError) -> Void
+    
+    typealias InsertionError = Error?
+    typealias InsertionCompletion = (InsertionError) -> Void
     
     typealias RetrievalResult = Result<CachedRequirements?, Error>
     typealias RetrievalCompletion = (RetrievalResult) -> Void
