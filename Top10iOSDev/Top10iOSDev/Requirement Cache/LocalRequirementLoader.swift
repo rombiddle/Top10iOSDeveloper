@@ -50,10 +50,10 @@ extension LocalRequirementLoader: RequirementLoader {
             case let .failure(error):
                 completion(.failure(error))
                 
-            case let .success(.found(requirements)):
-                completion(.success(requirements.toModels()))
+            case let .success(.some(cache)):
+                completion(.success(cache.requirements.toModels()))
                 
-            case .success(.empty):
+            case .success(.none):
                 completion(.success([]))
             }
         }

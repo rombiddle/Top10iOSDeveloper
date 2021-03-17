@@ -11,11 +11,11 @@ import Top10iOSDev
 extension RequirementStoreSpecs where Self: XCTestCase {
 
     func assertThatRetrieveDeliversEmptyOnEmptyCache(on sut: RequirementStore, file: StaticString = #file, line: UInt = #line) {
-        expect(sut, toRetrieve: .success(.empty), file: file, line: line)
+        expect(sut, toRetrieve: .success(.none), file: file, line: line)
     }
 
     func assertThatRetrieveHasNoSideEffectsOnEmptyCache(on sut: RequirementStore, file: StaticString = #file, line: UInt = #line) {
-        expect(sut, toRetrieveTwice: .success(.empty), file: file, line: line)
+        expect(sut, toRetrieveTwice: .success(.none), file: file, line: line)
     }
 
     func assertThatRetrieveDeliversFoundValuesOnNonEmptyCache(on sut: RequirementStore, file: StaticString = #file, line: UInt = #line) {
@@ -23,7 +23,7 @@ extension RequirementStoreSpecs where Self: XCTestCase {
                 
         insert(requirements, to: sut)
                 
-        expect(sut, toRetrieve: .success(.found(requirements: requirements)))
+        expect(sut, toRetrieve: .success(CachedRequirements(requirements: requirements)))
     }
 
     func assertThatRetrieveHasNoSideEffectsOnNonEmptyCache(on sut: RequirementStore, file: StaticString = #file, line: UInt = #line) {
@@ -31,7 +31,7 @@ extension RequirementStoreSpecs where Self: XCTestCase {
                 
         insert(requirements, to: sut)
                 
-        expect(sut, toRetrieveTwice: .success(.found(requirements: requirements)))
+        expect(sut, toRetrieveTwice: .success(CachedRequirements(requirements: requirements)))
     }
 
     func assertThatInsertDeliversNoErrorOnEmptyCache(on sut: RequirementStore, file: StaticString = #file, line: UInt = #line) {
@@ -46,7 +46,7 @@ extension RequirementStoreSpecs where Self: XCTestCase {
         let lastestRequirements = uniqueItems().locals
         insert(lastestRequirements, to: sut)
                 
-        expect(sut, toRetrieve: .success(.found(requirements: lastestRequirements)))
+        expect(sut, toRetrieve: .success(CachedRequirements(requirements: lastestRequirements)))
     }
 
     func assertThatInsertOverridesPreviouslyInsertedCacheValues(on sut: RequirementStore, file: StaticString = #file, line: UInt = #line) {
@@ -55,7 +55,7 @@ extension RequirementStoreSpecs where Self: XCTestCase {
         let lastestRequirements = uniqueItems().locals
         insert(lastestRequirements, to: sut)
                 
-        expect(sut, toRetrieve: .success(.found(requirements: lastestRequirements)))
+        expect(sut, toRetrieve: .success(CachedRequirements(requirements: lastestRequirements)))
     }
 
     func assertThatDeleteDeliversNoErrorOnEmptyCache(on sut: RequirementStore, file: StaticString = #file, line: UInt = #line) {
@@ -67,7 +67,7 @@ extension RequirementStoreSpecs where Self: XCTestCase {
     func assertThatDeleteHasNoSideEffectsOnEmptyCache(on sut: RequirementStore, file: StaticString = #file, line: UInt = #line) {
         deleteCache(from: sut)
 
-        expect(sut, toRetrieve: .success(.empty), file: file, line: line)
+        expect(sut, toRetrieve: .success(.none), file: file, line: line)
     }
 
     func assertThatDeleteDeliversNoErrorOnNonEmptyCache(on sut: RequirementStore, file: StaticString = #file, line: UInt = #line) {
@@ -84,7 +84,7 @@ extension RequirementStoreSpecs where Self: XCTestCase {
 
         deleteCache(from: sut)
 
-        expect(sut, toRetrieve: .success(.empty))
+        expect(sut, toRetrieve: .success(.none))
     }
 
     func assertThatSideEffectsRunSerially(on sut: RequirementStore, file: StaticString = #file, line: UInt = #line) {
@@ -116,7 +116,7 @@ extension RequirementStoreSpecs where Self: XCTestCase {
 
 extension RequirementStoreSpecs where Self: XCTestCase {
     func assertThatRetrieveEmptyOnEmptyCache(on sut: RequirementStore, file: StaticString = #filePath, line: UInt = #line) {
-        expect(sut, toRetrieve: .success(.empty))
+        expect(sut, toRetrieve: .success(.none))
     }
     
     @discardableResult
@@ -149,12 +149,12 @@ extension RequirementStoreSpecs where Self: XCTestCase {
         
         sut.retrieve { retrievedResult in
             switch (expectedResult, retrievedResult) {
-            case (.success(.empty), .success(.empty)),
+            case (.success(.none), .success(.none)),
                  (.failure, .failure):
                 break
                 
-            case let (.success(.found(expected)), .success(.found(retrieved))):
-                XCTAssertEqual(expected, retrieved)
+            case let (.success(.some(expected)), .success(.some(retrieved))):
+                XCTAssertEqual(expected.requirements, retrieved.requirements)
                 
             default:
                 XCTFail("Expected to retrieve \(expectedResult), got \(retrievedResult) instead", file: file, line: line)

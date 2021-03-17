@@ -7,16 +7,19 @@
 
 import Foundation
 
-public enum CacheFeed {
-    case empty
-    case found(requirements: [LocalRequirementCategory])
+public struct CachedRequirements {
+    public let requirements: [LocalRequirementCategory]
+    
+    public init(requirements: [LocalRequirementCategory]) {
+        self.requirements = requirements
+    }
 }
 
 public protocol RequirementStore {
     typealias DeletionCompletion = (Error?) -> Void
     typealias InsertionCompletion = (Error?) -> Void
     
-    typealias RetrievalResult = Result<CacheFeed, Error>
+    typealias RetrievalResult = Result<CachedRequirements?, Error>
     typealias RetrievalCompletion = (RetrievalResult) -> Void
     
     /// The completion handler can be invoked in any thread.
