@@ -8,7 +8,7 @@
 import XCTest
 import Top10iOSDev
 
-class CodableRequirementStoreTests: XCTestCase, FailableInsertRequirementStoreSpecs, FailableRetrieveRequirementStoreSpecs {
+class CodableRequirementStoreTests: XCTestCase, FailableRequirementStore {
     
     override func setUp() {
         super.setUp()
@@ -120,21 +120,19 @@ class CodableRequirementStoreTests: XCTestCase, FailableInsertRequirementStoreSp
         assertThatDeleteEmptiesPreviouslyInsertedCache(on: sut)
     }
     
-    // --
-//    func test_delete_deliversErrorOnDeletionError() {
-//        let noDeletePermissionURL = cachesDirectory()
-//        let sut = makeSUT(storeURL: noDeletePermissionURL)
-//
-//        assertThatDeleteDeliversErrorOnDeletionError(on: sut)
-//    }
-//
-//    func test_delete_hasNoSideEffectsOnDeletionError() {
-//        let noDeletePermissionURL = cachesDirectory()
-//        let sut = makeSUT(storeURL: noDeletePermissionURL)
-//
-//        assertThatDeleteHasNoSideEffectsOnDeletionError(on: sut)
-//    }
-    // --
+    func test_delete_deliversErrorOnDeletionError() {
+        let noDeletePermissionURL = cachesDirectory()
+        let sut = makeSUT(storeURL: noDeletePermissionURL)
+
+        assertThatDeleteDeliversErrorOnDeletionError(on: sut)
+    }
+
+    func test_delete_hasNoSideEffectsOnDeletionError() {
+        let noDeletePermissionURL = cachesDirectory()
+        let sut = makeSUT(storeURL: noDeletePermissionURL)
+
+        assertThatDeleteHasNoSideEffectsOnDeletionError(on: sut)
+    }
     
     func test_storeSideEffects_runSerially() {
         let sut = makeSUT()
@@ -167,7 +165,7 @@ class CodableRequirementStoreTests: XCTestCase, FailableInsertRequirementStoreSp
     }
     
     private func cachesDirectory() -> URL {
-        return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        return FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
     }
 
 }
