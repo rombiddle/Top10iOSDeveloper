@@ -8,7 +8,7 @@
 import XCTest
 import Top10iOSDev
 
-class CodableRequirementStoreTests: XCTestCase, FailableRequirementStore {
+class CodableRequirementStoreTests: XCTestCase, FailableInsertRequirementStoreSpecs, FailableRetrieveRequirementStoreSpecs {
     
     override func setUp() {
         super.setUp()
@@ -127,7 +127,7 @@ class CodableRequirementStoreTests: XCTestCase, FailableRequirementStore {
 //
 //        assertThatDeleteDeliversErrorOnDeletionError(on: sut)
 //    }
-//    
+//
 //    func test_delete_hasNoSideEffectsOnDeletionError() {
 //        let noDeletePermissionURL = cachesDirectory()
 //        let sut = makeSUT(storeURL: noDeletePermissionURL)
