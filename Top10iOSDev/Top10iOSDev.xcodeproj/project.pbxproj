@@ -21,7 +21,6 @@
 		259ECBBC25E63BD000E3F4BA /* XCTestCase+FailableInsertRequirementStoreSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259ECBBB25E63BD000E3F4BA /* XCTestCase+FailableInsertRequirementStoreSpecs.swift */; };
 		259ECBC125E63D2400E3F4BA /* XCTestCase+FailableDeleteRequirementStoreSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259ECBC025E63D2400E3F4BA /* XCTestCase+FailableDeleteRequirementStoreSpecs.swift */; };
 		25A4A35525A1FBC300BDE1B3 /* Top10iOSDev.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25A4A34B25A1FBC200BDE1B3 /* Top10iOSDev.framework */; };
-		25A4A35C25A1FBC300BDE1B3 /* Top10iOSDev.h in Headers */ = {isa = PBXBuildFile; fileRef = 25A4A34E25A1FBC200BDE1B3 /* Top10iOSDev.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		25A4A36825A1FC3100BDE1B3 /* RequirementItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A4A36725A1FC3100BDE1B3 /* RequirementItem.swift */; };
 		25A4A36C25A1FDD100BDE1B3 /* RequirementLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A4A36B25A1FDD100BDE1B3 /* RequirementLoader.swift */; };
 		25A4A37325A2072600BDE1B3 /* LoadRequirementsFromRemoteUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A4A37225A2072600BDE1B3 /* LoadRequirementsFromRemoteUseCaseTests.swift */; };
@@ -222,7 +221,6 @@
 		25A4A35825A1FBC300BDE1B3 /* Top10iOSDevTests */ = {
 			isa = PBXGroup;
 			children = (
-				2551166125B814E7009B27CB /* Helpers */,
 				25A4A35B25A1FBC300BDE1B3 /* Info.plist */,
 				2551166125B814E7009B27CB /* Helpers */,
 				251E3B6925BEADC20069A2B7 /* Requirement Cache */,
@@ -524,6 +522,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = rb.app.Top10OSDevAPIEndToEndTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -542,6 +541,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = rb.app.Top10OSDevAPIEndToEndTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -688,6 +688,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = rb.app.Top10iOSDev;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
@@ -714,6 +715,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = rb.app.Top10iOSDev;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -733,6 +735,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = rb.app.Top10iOSDevTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -752,6 +755,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = rb.app.Top10iOSDevTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
