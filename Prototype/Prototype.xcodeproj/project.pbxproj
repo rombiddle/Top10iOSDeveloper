@@ -14,6 +14,7 @@
 		2548059D26039DFF00496668 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2548059B26039DFF00496668 /* LaunchScreen.storyboard */; };
 		2548086E2604D2C300496668 /* RequirementsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2548086D2604D2C300496668 /* RequirementsViewController.swift */; };
 		254809312608817B00496668 /* RequirementViewModel+PrototypeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254809302608817B00496668 /* RequirementViewModel+PrototypeData.swift */; };
+		254809342608831C00496668 /* RequirementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254809332608831C00496668 /* RequirementCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		2548059E26039DFF00496668 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2548086D2604D2C300496668 /* RequirementsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequirementsViewController.swift; sourceTree = "<group>"; };
 		254809302608817B00496668 /* RequirementViewModel+PrototypeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequirementViewModel+PrototypeData.swift"; sourceTree = "<group>"; };
+		254809332608831C00496668 /* RequirementCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequirementCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				2548059E26039DFF00496668 /* Info.plist */,
 				2548086D2604D2C300496668 /* RequirementsViewController.swift */,
 				254809302608817B00496668 /* RequirementViewModel+PrototypeData.swift */,
+				254809332608831C00496668 /* RequirementCell.swift */,
 			);
 			path = Prototype;
 			sourceTree = "<group>";
@@ -141,6 +144,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2548059126039DFB00496668 /* AppDelegate.swift in Sources */,
+				254809342608831C00496668 /* RequirementCell.swift in Sources */,
 				2548086E2604D2C300496668 /* RequirementsViewController.swift in Sources */,
 				2548059326039DFB00496668 /* SceneDelegate.swift in Sources */,
 				254809312608817B00496668 /* RequirementViewModel+PrototypeData.swift in Sources */,
