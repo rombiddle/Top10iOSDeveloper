@@ -7,6 +7,12 @@
 
 import UIKit
 
+struct RequirementViewModel {
+    let title: String
+    let totalItems: Int
+    let completedItems: Int
+}
+
 class RequirementsViewController: UIViewController {
     
     @IBOutlet weak var requirementCollectionView: UICollectionView!

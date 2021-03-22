@@ -13,6 +13,7 @@
 		2548059A26039DFF00496668 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2548059926039DFF00496668 /* Assets.xcassets */; };
 		2548059D26039DFF00496668 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2548059B26039DFF00496668 /* LaunchScreen.storyboard */; };
 		2548086E2604D2C300496668 /* RequirementsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2548086D2604D2C300496668 /* RequirementsViewController.swift */; };
+		254809312608817B00496668 /* RequirementViewModel+PrototypeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254809302608817B00496668 /* RequirementViewModel+PrototypeData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		2548059C26039DFF00496668 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2548059E26039DFF00496668 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2548086D2604D2C300496668 /* RequirementsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequirementsViewController.swift; sourceTree = "<group>"; };
+		254809302608817B00496668 /* RequirementViewModel+PrototypeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequirementViewModel+PrototypeData.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				2548059B26039DFF00496668 /* LaunchScreen.storyboard */,
 				2548059E26039DFF00496668 /* Info.plist */,
 				2548086D2604D2C300496668 /* RequirementsViewController.swift */,
+				254809302608817B00496668 /* RequirementViewModel+PrototypeData.swift */,
 			);
 			path = Prototype;
 			sourceTree = "<group>";
@@ -140,6 +143,7 @@
 				2548059126039DFB00496668 /* AppDelegate.swift in Sources */,
 				2548086E2604D2C300496668 /* RequirementsViewController.swift in Sources */,
 				2548059326039DFB00496668 /* SceneDelegate.swift in Sources */,
+				254809312608817B00496668 /* RequirementViewModel+PrototypeData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
