@@ -10,12 +10,12 @@ import Foundation
 extension RequirementViewModel {
     static var prototypeRequirements: [RequirementViewModel] {
         return [
-            RequirementViewModel(title: "CI / CD", totalItems: 2, completedItems: 5),
-            RequirementViewModel(title: "Software Architecture", totalItems: 1, completedItems: 3),
-            RequirementViewModel(title: "Versionning", totalItems: 1, completedItems: 2),
-            RequirementViewModel(title: "Dependency Manger", totalItems: 1, completedItems: 3),
-            RequirementViewModel(title: "OOP", totalItems: 1, completedItems: 10),
-            RequirementViewModel(title: "Software Design", totalItems: 3, completedItems: 7)
+            RequirementViewModel(title: "CI / CD", totalItems: 5, completedItems: 2),
+            RequirementViewModel(title: "Software Architecture", totalItems: 3, completedItems: 1),
+            RequirementViewModel(title: "Versionning", totalItems: 2, completedItems: 1),
+            RequirementViewModel(title: "Dependency Manger", totalItems: 3, completedItems: 1),
+            RequirementViewModel(title: "OOP", totalItems: 10, completedItems: 1),
+            RequirementViewModel(title: "Software Design", totalItems: 7, completedItems: 3)
         ]
     }
 }
