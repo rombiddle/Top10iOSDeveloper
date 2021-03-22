@@ -16,6 +16,8 @@ struct RequirementViewModel {
 class RequirementsViewController: UIViewController {
     
     @IBOutlet weak var requirementCollectionView: UICollectionView!
+    
+    private let requirements = RequirementViewModel.prototypeRequirements
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,11 +34,14 @@ class RequirementsViewController: UIViewController {
 
 extension RequirementsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        requirements.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return collectionView.dequeueReusableCell(withReuseIdentifier: "RequirementCell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RequirementCell", for: indexPath) as! RequirementCell
+        let model = requirements[indexPath.row]
+        cell.configure(with: model)
+        return cell
     }
 }
 
@@ -47,5 +52,12 @@ extension RequirementsViewController: UICollectionViewDelegateFlowLayout {
         let availableWidth = collectionView.frame.width - spacing * (itemsPerRow - 1)
         let widthPerItem = availableWidth / itemsPerRow
         return CGSize(width: widthPerItem, height: widthPerItem)
+    }
+}
+
+extension RequirementCell {
+    func configure(with model: RequirementViewModel) {
+        title.text = model.title
+        completedItemsDescription.text = "\(model.completedItems) of \(model.totalItems) completed"
     }
 }
